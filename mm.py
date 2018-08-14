@@ -190,24 +190,28 @@ VOISINS = generateAllNeighbours()
 
 # print("couleurs : {} > {} combinaisons".format(COLORS,len(UNIVERSE)))
 
-print("Choisis une combinaison constituee des couleurs suivantes {}".format(COLORS))
-input("Quand tu es pret, tape Entree")
-pasTrouve = True
-possibilities = UNIVERSE
-cpt = 0
-while pasTrouve:
-##    print("CDEF" in possibilities)
-    options = bestProposition(possibilities)
-    choix = choice(list(options))
-    print("---")
-    print("Je joue {}".format(choix))
-    cpt += 1
+def NouvellePartie():
+    print("\n*** MASTER MIND ***\n")  
+    print("Choisis une combinaison constituee des couleurs suivantes {}".format(COLORS))
+    input("Quand tu es pret, tape Entree")
+    pasTrouve = True
+    possibilities = UNIVERSE
+    cpt = 0
+    while pasTrouve:
+    ##    print("CDEF" in possibilities)
+        options = bestProposition(possibilities)
+        choix = choice(list(options))
+        print("---")
+        print("Je joue {}".format(choix))
+        cpt += 1
 
-    a = int(input("Combien de bien placés ?"))
-    b = int(input("Combien de mal placés ?"))
-    note = (a, b)
-    possibilities = possibilities.intersection(VOISINS[choix][note])
-    if note == (4, 0):
-        pasTrouve = False
+        a = int(input("Combien de bien placés ?"))
+        b = int(input("Combien de mal placés ?"))
+        note = (a, b)
+        possibilities = possibilities.intersection(VOISINS[choix][note])
+        if note == (4, 0):
+            pasTrouve = False
 
-print("\nAhah, j'ai trouve en {} coups !!".format(cpt))
+    print("\nAhah, j'ai trouve en {} coups !!".format(cpt))
+
+NouvellePartie()
