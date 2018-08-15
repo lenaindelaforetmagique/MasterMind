@@ -42,19 +42,6 @@ def strComp(s1, s2):
     return (a, b)
 
 
-# def dvlpComb(s, note):
-#     """Develops combinations that are compatible with note(a,b)
-#     returns a set containing strings
-#     """
-#     result = set()
-#     for a_pos in k_parmi_n(a, n):
-#         for b_pos in k_parmi_n(b, n-a):
-#             a = 1
-#
-#
-#     return result
-
-
 ## -------------------------------
 
 def generateUniverse():
@@ -73,22 +60,6 @@ def generateUniverse():
         res.add(comb)
     return res
 
-def generateAllNotes():
-    """Generates a dictionary containing all the notes and their probability"""
-    global UNIVERSE
-    res = {}
-    for sol in UNIVERSE:
-        for prop in UNIVERSE:
-            score = strComp(sol, prop)
-            if score not in res.keys():
-                res[score] = 0
-            res[score] += 1
-    nb = len(UNIVERSE)
-    for key in res.keys():
-        res[key] /=nb**2
-
-    return res
-
 
 def generateAllNeighbours():
     """Generates a dictionary {key:dictionary(note:set())} where:
@@ -105,30 +76,10 @@ def generateAllNeighbours():
             res[id][score].add(idn)
     return res
 
-# def statOnNotes(dic):
-#     """Generates a dictionary of probabilities for each note based on _dic_
-#     dic:{key:dictionary(note:set())}
-#     key: tuple (a,b)
-#     values: probability
-#     """
-#     res = {}
-#     cpt = 0
-#     for id in dic.keys():
-#         for score in dic[id].keys():
-#             if score not in res.keys():
-#                 res[score] = 0
-#             nb = len(dic[id][score])
-#             cpt += nb
-#             res[score] += nb
-#     for key in res.keys():
-#         res[key] /= cpt
-#     return res
-
-
 ## ----------------------------------------------------------------------------
 
 def noteProposition(prop, reste):
-    """Calculates the average size  after playing _prop_
+    """Calculates the average size after playing _prop_
     reste: combinations that may solve the problem
     """
     global NB_COMB, VOISINS
@@ -137,6 +88,7 @@ def noteProposition(prop, reste):
         proba = len(VOISINS[prop][note])/NB_COMB
         res += proba*len(reste.intersection(VOISINS[prop][note]))
     return res
+
 
 def bestProposition(reste):
     """Returns the best proposition that minimize the size of residual possibilities
@@ -152,46 +104,6 @@ def bestProposition(reste):
             sol = []
             sol.append(prop)
     return sol
-
-## ----------------------------------------------------------------------------
-def nbCoups(solution):
-    """Retourne le nombre de coups nécessaires pour trouver la solution"""
-    global UNIVERSE, VOISINS
-    cpt = 0
-    possibilities = UNIVERSE
-    note = None
-    while note != (4, 0):
-        options = bestProposition(possibilities)
-        choix = choice(list(options))
-        note = strComp(solution, choix)
-        # print(choix, note)
-        cpt += 1
-        possibilities = possibilities.intersection(VOISINS[choix][note])
-    # print("** BRAVO, trouvé en {} coups".format(cpt))
-    return cpt
-
-def calculeTout():
-    """Retourne le nombre de cas trouvés par nombre de coups
-    """
-    dicoNBcoups = {}
-    # solution = choice(list(UNIVERSE))
-    for solution in UNIVERSE:
-        nb = nbCoups(solution)
-        if nb not in dicoNBcoups.keys():
-            dicoNBcoups[nb] = 0
-            dicoNBcoups[nb] += 1
-    print(dicoNBcoups)
-
-
-## ----------------------------------------------------------------------------
-t0 = time()
-print("Chargement ...")
-COLORS = "ABCDEF"
-UNIVERSE = generateUniverse()
-NB_COMB = len(UNIVERSE)
-VOISINS = generateAllNeighbours()
-print(" ... fait en {:.3} s".format(time()-t0))
-
 
 ## ----------------------------------------------------------------------------
 
@@ -229,25 +141,69 @@ def NouvellePartie(solution = None):
             else:
                 possibilities = possibilities.intersection(VOISINS[choix][note])
         else:
-            print("Arf, je n'arrive pas à trouver ! ", solution)
+            print("Arf, je n'arrive pas à trouver ! ")
             pasErreur = False
             
     if pasErreur:
         print("\nAhah, j'ai trouve en {} coups !!".format(cpt))
         print("Pour jouer à nouveau, tape 'NouvellePartie()'")
 
-    return pasErreur
-# ---------
-
-NouvellePartie()
+    if solution is not None:
+        return pasErreur
 
 
-# ------------
+## ----------------------------------------------------------------------------
+
 def test():
-    listeUnivers =list(UNIVERSE)
+    listeUnivers = list(UNIVERSE)
     listeUnivers.sort()
     i = 0
     while NouvellePartie(choice(listeUnivers)):
         i+=1
         print(i)
         
+
+## ----------------------------------------------------------------------------
+
+def readLines(fileName):
+    """Returns a table containing the lines in fileName, without '\n' at ending"""
+    file = open(fileName,'r')
+    Lines = file.readlines()
+    file.close()
+    result = []
+    for line in Lines:
+        result.append(line.replace('\n', ''))
+    return result
+
+## ----------------------------------------------------------------------------
+
+
+
+
+t0 = time()
+print("Chargement ...")
+COLORS = "ABCDEFGH"
+UNIVERSE = generateUniverse()
+NB_COMB = len(UNIVERSE)
+VOISINS = generateAllNeighbours()
+print(" ... fait en {:.3} s".format(time()-t0))
+
+##
+##strU = ' '.join(UNIVERSE)
+##strN = ' '.join(
+##file = open(COLORS + ".dat", 'w')
+##file.write(truc)
+##file.write("\n")
+##file.write("coucou")
+##file.close()
+##
+##bdule = set(truc)
+##print(type(bdule))
+##print(bdule)
+##
+
+NouvellePartie()
+
+
+
+
