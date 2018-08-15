@@ -4,6 +4,7 @@
 # MasterMind Game
 
 from random import *
+from time import *
 
 
 
@@ -182,36 +183,71 @@ def calculeTout():
     print(dicoNBcoups)
 
 
-
+## ----------------------------------------------------------------------------
+t0 = time()
+print("Chargement ...")
 COLORS = "ABCDEF"
 UNIVERSE = generateUniverse()
 NB_COMB = len(UNIVERSE)
 VOISINS = generateAllNeighbours()
+print(" ... fait en {:.3} s".format(time()-t0))
 
-# print("couleurs : {} > {} combinaisons".format(COLORS,len(UNIVERSE)))
 
-def NouvellePartie():
-    print("\n*** MASTER MIND ***\n")  
-    print("Choisis une combinaison constituee des couleurs suivantes {}".format(COLORS))
-    input("Quand tu es pret, tape Entree")
+## ----------------------------------------------------------------------------
+
+def NouvellePartie(solution = None):
+    print("\n*** MASTER MIND ***\n")
+    if solution is None:
+        print("Choisis une combinaison constituee des couleurs suivantes {}".format(COLORS))
+        input("Quand tu es pret, tape Entree")
     pasTrouve = True
+    pasErreur = True
     possibilities = UNIVERSE
     cpt = 0
-    while pasTrouve:
-    ##    print("CDEF" in possibilities)
-        options = bestProposition(possibilities)
-        choix = choice(list(options))
+    while pasTrouve and pasErreur:
         print("---")
-        print("Je joue {}".format(choix))
         cpt += 1
+        options = bestProposition(possibilities)
+        if len(options)>0 and len(possibilities)>0:
+            print("Coup #{} -- ({}/{})".format(cpt, len(options), len(possibilities)))
+            choix = choice(list(options))
 
-        a = int(input("Combien de bien placés ?"))
-        b = int(input("Combien de mal placés ?"))
-        note = (a, b)
-        possibilities = possibilities.intersection(VOISINS[choix][note])
-        if note == (4, 0):
-            pasTrouve = False
+            print("Je joue {}".format(choix))
+            if solution is None:          
+                a = int(input("Combien de bien placés ?"))
+                if a < 3:
+                    b = int(input("Combien de mal placés ?"))
+                else:
+                    b = 0
+                note = (a, b)
+            else:
+                note = strComp(solution, choix)
+                print(note)
+                
+            if note == (4, 0):
+                pasTrouve = False
+            else:
+                possibilities = possibilities.intersection(VOISINS[choix][note])
+        else:
+            print("Arf, je n'arrive pas à trouver ! ", solution)
+            pasErreur = False
+            
+    if pasErreur:
+        print("\nAhah, j'ai trouve en {} coups !!".format(cpt))
+        print("Pour jouer à nouveau, tape 'NouvellePartie()'")
 
-    print("\nAhah, j'ai trouve en {} coups !!".format(cpt))
+    return pasErreur
+# ---------
 
 NouvellePartie()
+
+
+# ------------
+def test():
+    listeUnivers =list(UNIVERSE)
+    listeUnivers.sort()
+    i = 0
+    while NouvellePartie(choice(listeUnivers)):
+        i+=1
+        print(i)
+        
