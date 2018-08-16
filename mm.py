@@ -5,9 +5,12 @@
 
 from random import *
 from time import *
+import pickle
+import os.path
 
-
-
+## ----------------------------------------------------------------------------
+COLORS = "ABCDEFGH"
+LENGTH = 4
 ## ----------------------------------------------------------------------------
 
 def strComp(s1, s2):
@@ -45,58 +48,91 @@ def strComp(s1, s2):
 ## -------------------------------
 
 def generateUniverse():
-    """Returns all possible combinations in a range"""
-    global COLORS
-    nCol = len(COLORS)
-    # res = []
-    res = set()
-    for i in range(nCol**4):
-        comb = ""
-        k = i
-        while k > 0 or len(comb) < 4:
-            comb += COLORS[k%nCol]
-            k//=nCol
-        # res.append(comb)
-        res.add(comb)
+    """Returns all possible combinations:
+    colors: str of authorized letters/colors
+    length: int representing the length of a combination"""
+
+    global COLORS, LENGTH
+    fileName = "{}_{}.dat".format(COLORS, LENGTH)
+
+    if os.path.isfile(fileName):
+        # load file
+        print(" .. opening {}".format(fileName))
+        file = open(fileName, 'rb')
+        res = pickle.load(file)
+        file.close()       
+    else:
+        # job        
+        nCol = len(COLORS)
+        res = set()
+        for i in range(nCol**LENGTH):
+            comb = ""
+            k = i
+            while k > 0 or len(comb) < LENGTH:
+                comb += COLORS[k%nCol]
+                k//=nCol
+            res.add(comb)
+        # save file
+        print(" .. saving {}".format(fileName))
+        file = open(fileName, 'wb')
+        pickle.dump(res, file)
+        file.close()
+    
     return res
 
 
 def generateAllNeighbours():
-    """Generates a dictionary {key:dictionary(note:set())} where:
+    """Generates a dictionary {key:combination;value:dictionary(key:note;value:set(combinations))} where:
     note is a tuple (a,b)
     set() is a set containing all neighbours that would have the same note"""
-    global UNIVERSE
-    res = {}
-    for id in UNIVERSE:
-        res[id] = {}
-        for idn in UNIVERSE:
-            score = strComp(id, idn)
-            if score not in res[id].keys():
-                res[id][score] = set()
-            res[id][score].add(idn)
+    global COLORS, LENGTH, UNIVERSE
+    fileName = "{}_{}_n.dat".format(COLORS, LENGTH)
+    
+    if os.path.isfile(fileName):
+        # load file
+        print(" .. opening {}".format(fileName))
+        file = open(fileName, 'rb')
+        res = pickle.load(file)
+        file.close()
+    else:
+        # job
+        res = {}
+        for id in UNIVERSE:
+            res[id] = {}
+            for idn in UNIVERSE:
+                score = strComp(id, idn)
+                if score not in res[id].keys():
+                    res[id][score] = set()
+                res[id][score].add(idn)
+        # save file
+        print(" .. saving {}".format(fileName))
+        file = open(fileName, 'wb')
+        pickle.dump(res, file)
+        file.close()
     return res
-
+    
 ## ----------------------------------------------------------------------------
 
-def noteProposition(prop, reste):
+def evaluateProposition(prop, reste):
     """Calculates the average size after playing _prop_
     reste: combinations that may solve the problem
     """
-    global NB_COMB, VOISINS
+    global NB_COMB, NEIGHBOURS
     res = 0
-    for note in VOISINS[prop].keys():
-        proba = len(VOISINS[prop][note])/NB_COMB
-        res += proba*len(reste.intersection(VOISINS[prop][note]))
-    return res
+    for note in NEIGHBOURS[prop].keys():
+        proba = len(NEIGHBOURS[prop][note])/NB_COMB
+        res += proba*len(reste.intersection(NEIGHBOURS[prop][note]))
+    return int(res)
 
 
 def bestProposition(reste):
     """Returns the best proposition that minimize the size of residual possibilities
     """
-    min = len(COLORS)**4
+    global COLORS, LENGTH
+    min = len(COLORS)**LENGTH
     sol = []
     for prop in reste:
-        val = int(noteProposition(prop, reste))
+        val = evaluateProposition(prop, reste)
         if val == min:
             sol.append(prop)
         elif val < min:
@@ -107,16 +143,23 @@ def bestProposition(reste):
 
 ## ----------------------------------------------------------------------------
 
-def NouvellePartie(solution = None):
+def NewGame(solution = None):
+    """Launches a new game.
+    solution(None): if specified, the program works alone, otherwise the user has to note each try
+    """
+    global COLORS, LENGTH, UNIVERSE
+    
     print("\n*** MASTER MIND ***\n")
+    
     if solution is None:
-        print("Choisis une combinaison constituee des couleurs suivantes {}".format(COLORS))
+        print("Choisis une combinaison à {} couleurs parmi les suivantes {}".format(LENGTH, COLORS))
         input("Quand tu es pret, tape Entree")
-    pasTrouve = True
-    pasErreur = True
+        
     possibilities = UNIVERSE
+    notFound = True
+    noError = True
     cpt = 0
-    while pasTrouve and pasErreur:
+    while notFound and noError:
         print("---")
         cpt += 1
         options = bestProposition(possibilities)
@@ -127,7 +170,7 @@ def NouvellePartie(solution = None):
             print("Je joue {}".format(choix))
             if solution is None:          
                 a = int(input("Combien de bien placés ?"))
-                if a < 3:
+                if a < LENGTH-1:
                     b = int(input("Combien de mal placés ?"))
                 else:
                     b = 0
@@ -136,73 +179,46 @@ def NouvellePartie(solution = None):
                 note = strComp(solution, choix)
                 print(note)
                 
-            if note == (4, 0):
-                pasTrouve = False
+            if note == (LENGTH, 0):
+                notFound = False
             else:
-                possibilities = possibilities.intersection(VOISINS[choix][note])
+                possibilities = possibilities.intersection(NEIGHBOURS[choix][note])
         else:
             print("Arf, je n'arrive pas à trouver ! ")
-            pasErreur = False
+            noError = False
             
-    if pasErreur:
+    if noError:
         print("\nAhah, j'ai trouve en {} coups !!".format(cpt))
-        print("Pour jouer à nouveau, tape 'NouvellePartie()'")
+        print("Pour jouer à nouveau, tape 'NewGame()'")
 
     if solution is not None:
-        return pasErreur
+        return noError
 
 
 ## ----------------------------------------------------------------------------
 
 def test():
+    """(obsolete) A lot of tries to check program"""
+    global UNIVERSE
     listeUnivers = list(UNIVERSE)
     listeUnivers.sort()
     i = 0
-    while NouvellePartie(choice(listeUnivers)):
+    while NewGame(choice(listeUnivers)):
         i+=1
         print(i)
         
 
 ## ----------------------------------------------------------------------------
 
-def readLines(fileName):
-    """Returns a table containing the lines in fileName, without '\n' at ending"""
-    file = open(fileName,'r')
-    Lines = file.readlines()
-    file.close()
-    result = []
-    for line in Lines:
-        result.append(line.replace('\n', ''))
-    return result
-
-## ----------------------------------------------------------------------------
-
-
-
-
 t0 = time()
 print("Chargement ...")
-COLORS = "ABCDEFGH"
 UNIVERSE = generateUniverse()
 NB_COMB = len(UNIVERSE)
-VOISINS = generateAllNeighbours()
+NEIGHBOURS = generateAllNeighbours()
 print(" ... fait en {:.3} s".format(time()-t0))
 
-##
-##strU = ' '.join(UNIVERSE)
-##strN = ' '.join(
-##file = open(COLORS + ".dat", 'w')
-##file.write(truc)
-##file.write("\n")
-##file.write("coucou")
-##file.close()
-##
-##bdule = set(truc)
-##print(type(bdule))
-##print(bdule)
-##
 
-NouvellePartie()
+NewGame()
 
 
 
