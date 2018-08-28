@@ -1,0 +1,87 @@
+html, body {
+  background: #faf8ef;
+  color: #343838;
+  font-family: 'Gentium Book Basic', serif;
+}
+
+#score {
+  font-size: 40px;
+  font-weight: bold;
+}
+
+#topright {
+  font-size: 18px;
+}
+
+#topright-button {
+  background: #9D9D97;
+  color: #f9f6f2;
+}
+
+#overlay {
+  background: rgba(250, 248, 239, 0.8);
+}
+
+#grid {
+  background: #e5e5e2;
+}
+
+#bottombar {
+  font-size: 18px;
+  color: #bbb;
+}
+
+.block-0 {
+  background: yellow;
+}
+
+.block-1 {
+  background: blue;
+}
+
+.block-2 {
+  background: red;
+}
+
+.block-3 {
+  background: green;
+}
+
+.block-4 {
+  background: white;
+}
+
+.block-5 {
+  background: black;
+}
+
+.block-6 {
+  background: purple;
+}
+
+.block-7 {
+  background: pink;
+}
+
+/* mobile settings */
+
+@media screen and (max-width: 520px) {
+  #score {
+    font-size: 34px;
+  }
+  #overlay {
+    font-size: 34px;
+  }
+  .block {
+    font-size: 24px;
+  }
+  .block-1024 {
+    font-size: 19px;
+  }
+  .block-2048 {
+    font-size: 19px;
+  }
+  .block-over {
+    font-size: 16px;
+  }
+}

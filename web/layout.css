@@ -1,0 +1,108 @@
+html, body {
+  margin: 0;
+  padding: 0;
+  position: relative;
+  width: 500px;
+  margin: 0px auto;
+}
+
+nav {
+  /* height: 50px; */
+  flex: 100%;
+  display: flex;
+}
+
+nav ul {
+  padding: 0;
+  list-style-type: none;
+  flex: 2;
+  display: flex;
+}
+
+nav li {
+  display: inline;
+  text-align: center;
+  /* flex: 1; */
+}
+
+.block {
+  width: 50px;
+  height: 50px;
+  /* position: absolute; */
+  /* line-height: 100px; */
+  z-index: 2;
+}
+
+#topbar {
+  position: relative;
+  height: 40px;
+  margin-bottom: 10px;
+  text-align: center;
+}
+
+#score {
+  display: inline-block;
+  line-height: 40px;
+}
+
+#topright {
+  float: right;
+  text-align: center;
+}
+
+#next-block {
+  display: inline-block;
+  width: 40px;
+  height: 40px;
+  line-height: 40px;
+  border-radius: 6px;
+  visibility: hidden;
+}
+
+#topright-button {
+  display: inline-block;
+  height: 40px;
+  border-radius: 6px;
+  padding: 0 15px;
+  line-height: 40px;
+  cursor: pointer;
+}
+
+#overlay {
+  display: inline-block;
+  margin: 300px auto;
+  position: relative;
+  height: 100px;
+  left: 110%;
+  transition: left 0.4s;
+  padding: 0 20px;
+  z-index: 100;
+  border-radius: 20px;
+  line-height: 100px;
+  font-size: 40px;
+  font-weight: bold;
+}
+
+#grid {
+  position: relative;
+  width: 500px;
+  height: 700px;
+  z-index: 0;
+  overflow: hidden;
+  text-align: center;
+  cursor: default;
+}
+
+#bottombar {
+  position: fixed;
+  width: 500px;
+  bottom: 10px;
+  margin: 0 auto;
+  text-align: right;
+  cursor: pointer;
+}
+
+#bottombar div {
+  display: inline-block;
+  margin: 0 10px;
+}
