@@ -16,22 +16,48 @@ Game = function(nbDigits, nbColors) {
   this.tryCount = 0;
 
   this.html = new HTMLView(this);
+
+  this.startGame();
 };
 
 Game.prototype.reset = function() {
   this.tryCount = 0;
   this.target = [];
-  for (let i = 0; i < nbDig; i++) {
+  for (let i = 0; i < this.nbDig; i++) {
     this.target.push(Math.floor(Math.random() * this.nbCol));
   };
-  //
-  // this.score = 0;
-  // this.html.updateScore();
-  //
-  // this.updateFallingSpeed();
-  //
-  // this.makeNextBlock();
-  console.log(target);
+
+  console.log(this.target);
+};
+
+Game.prototype.noteTry = function(try_) {
+  var a = 0;
+  var b = 0;
+  var tar1 = [];
+  var try1 = [];
+  // Count of common colors at same place
+  for (let i = 0; i < this.target.length; i++) {
+    if (this.target[i] === try_[i]) {
+      a += 1;
+    } else {
+      tar1.push(this.target[i]);
+      try1.push(try_[i]);
+    }
+  };
+
+  tar1.sort();
+  try1.sort();
+
+  while (tar1.length > 0 && try1.lenght > 0) {
+    if (tar1[0] < try1[0]) {
+      tar1.shift();
+    } else if (tar1[0] > try1[0]) {
+      try1.shift();
+    } else {
+      b += 1;
+    }
+  };
+  return [a, b];
 };
 
 Game.prototype.startGame = function() {
@@ -252,4 +278,4 @@ Game.prototype.updateFallingSpeed = function() {
   this.fallDelay = 60 / bpm * 1000;
 };
 
-var game = new Game(6, 8);
+var game = new Game(4, 6);

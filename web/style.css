@@ -23,7 +23,8 @@ html, body {
 }
 
 #grid {
-  background: #e5e5e2;
+  background: gray;
+  /*#e5e5e2; */
 }
 
 #bottombar {

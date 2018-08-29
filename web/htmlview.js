@@ -100,7 +100,8 @@ HTMLView.prototype.tryAction = function() {
   console.log("coucou");
   if (this.try.length === this.game.nbDig) {
     console.log("check!");
-
+    let note = this.game.noteTry(this.try);
+    console.log(note);
     let dom = document.getElementById("currentTry");
     dom.id = "oldTry";
     this.resetAction();
