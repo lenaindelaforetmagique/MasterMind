@@ -252,4 +252,4 @@ Game.prototype.updateFallingSpeed = function() {
   this.fallDelay = 60 / bpm * 1000;
 };
 
-var game = new Game(4, 8);
+var game = new Game(6, 8);

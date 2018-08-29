@@ -21,63 +21,114 @@
 // THE SOFTWARE.
 
 HTMLView = function(game) {
+  // this.topbar = document.querySelector("#topbar");
   this.palette = document.querySelector("#palette");
-  this.toprightButton = document.querySelector("#topright-button");
+  // this.toprightButton = document.querySelector("#topright-button");
   this.grid = document.querySelector("#grid");
   this.overlay = document.querySelector("#overlay");
 
   this.game = game;
 
-
   this.try = [];
 
-
-  this.setupInput();
+  this.loadTopBar();
   // this.setupUpdate();
 };
 
 
-HTMLView.prototype.setupInput = function() {
+HTMLView.prototype.loadTopBar = function() {
   var thiz = this;
-  for (let i = 0; i < thiz.game.nbCol; i++) {
+  var game = this.game;
+  // Boutons de couleur
+  for (let i = 0; i < game.nbCol; i++) {
     let dom = document.createElement("li");
     dom.className = "block block-" + i;
     // dom.style.left = i * 100 + "px";
     // dom.style.top = i * width + "px";
 
     dom.onclick = function() {
-      thiz.ajoutePion(i);
+      thiz.addPawn(i);
     };
     thiz.palette.appendChild(dom);
   };
-  //
-  //
-  //
-  //
-  //
-  // var thiz = this;
-  // var game = this.game;
-  //
-  // this.toprightButton.onclick = function() {
-  //   if (!thiz.running) {
-  //     thiz.running = true;
-  //     thiz.game.startGame();
-  //
-  //     thiz.toprightButton.innerHTML = "Pause";
-  //     thiz.overlay.style.left = "110%";
-  //   } else {
-  //     thiz.togglePause();
-  //   }
-  // }
+
+  let dom = null;
+  let dom2 = null;
+
+  // Bouton Reset
+  dom = document.createElement("li");
+  dom2 = document.createElement("span"); //span
+  dom2.id = "topright-button";
+  dom2.innerHTML = "Reset";
+  dom.onclick = function() {
+    thiz.resetAction();
+  };
+  dom.appendChild(dom2);
+  thiz.palette.appendChild(dom);
+
+
+  // Bouton Essayer
+  dom = document.createElement("li");
+  dom2 = document.createElement("span"); //span
+  dom2.id = "topright-button";
+  dom2.innerHTML = "Essayer";
+  dom.onclick = function() {
+    thiz.tryAction();
+  };
+  dom.appendChild(dom2);
+
+  thiz.palette.appendChild(dom);
 
 };
 
-HTMLView.prototype.ajoutePion = function(color) {
+HTMLView.prototype.addPawn = function(color) {
   if (this.try.length < this.game.nbDig) {
     this.try.push(color);
-    console.log(this.try);
+    // console.log(this.try);
+    this.updateTry();
+  }
+
+};
+
+HTMLView.prototype.resetAction = function() {
+  this.try = [];
+  this.updateTry();
+};
+
+
+HTMLView.prototype.tryAction = function() {
+  console.log("coucou");
+  if (this.try.length === this.game.nbDig) {
+    console.log("check!");
+
+    let dom = document.getElementById("currentTry");
+    dom.id = "oldTry";
+    this.resetAction();
   }
 };
+
+
+HTMLView.prototype.updateTry = function() {
+
+  let dom = document.getElementById("currentTry");
+  if (dom !== null) {
+    this.grid.removeChild(dom);
+  }
+
+  dom = document.createElement("ul");
+  dom.id = "currentTry";
+
+  // Boutons de couleur
+  for (let i = 0; i < this.try.length; i++) {
+    let dom2 = document.createElement("li");
+    dom2.className = "block block-" + this.try[i];
+    dom.appendChild(dom2);
+  };
+  this.grid.appendChild(dom);
+
+
+};
+
 
 
 HTMLView.prototype.makeBlock = function(block) {

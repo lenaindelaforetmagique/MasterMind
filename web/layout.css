@@ -12,25 +12,44 @@ nav {
   display: flex;
 }
 
-nav ul {
+ul {
   padding: 0;
   list-style-type: none;
   flex: 2;
   display: flex;
 }
 
-nav li {
+li {
   display: inline;
   text-align: center;
   /* flex: 1; */
 }
 
 .block {
-  width: 50px;
+  /* width: 50px;
   height: 50px;
-  /* position: absolute; */
-  /* line-height: 100px; */
-  z-index: 2;
+  position: absolute;
+  line-height: 100px;
+  z-index: 2; */
+  display: inline-block;
+  height: 40px;
+  width: 40px;
+  margin: auto;
+  border-radius: 20px;
+  /* padding: 5px 5px; */
+  line-height: 40px;
+  cursor: pointer;
+  box-shadow: 2px 2px 3px black;
+}
+
+#topright-button {
+  display: inline-block;
+  height: 40px;
+  border-radius: 6px;
+  padding: 0 15px;
+  line-height: 40px;
+  cursor: pointer;
+  margin: 3px;
 }
 
 #topbar {
@@ -57,15 +76,6 @@ nav li {
   line-height: 40px;
   border-radius: 6px;
   visibility: hidden;
-}
-
-#topright-button {
-  display: inline-block;
-  height: 40px;
-  border-radius: 6px;
-  padding: 0 15px;
-  line-height: 40px;
-  cursor: pointer;
 }
 
 #overlay {
