@@ -1,67 +1,100 @@
+:root {
+  --solarized-base03: #002b36;
+  --solarized-base02: #073642;
+  --solarized-base01: #586e75;
+  --solarized-base00: #657b83;
+  --solarized-base0: #839496;
+  --solarized-base1: #93a1a1;
+  --solarized-base2: #eee8d5;
+  --solarized-base3: #fdf6e3;
+  --solarized-yellow: #b58900;
+  --solarized-orange: #cb4b16;
+  --solarized-red: #dc322f;
+  --solarized-magenta: #d33682;
+  --solarized-violet: #6c71c4;
+  --solarized-blue: #268bd2;
+  --solarized-cyan: #2aa198;
+  --solarized-green: #859900;
+  /*-----------*/
+  /*-----------*/
+  --bg-color: var(--solarized-base3);
+  --grid-color: var(--solarized-base2);
+  --text-h1: var(--solarized-base00);
+  /*var(--solarized-base03);*/
+  /*-Boutons-*/
+  --button-bg-color: var(--solarized-base00);
+  --button-txt-color: var(--solarized-base3);
+  /*--*/
+  --yellow: var(--solarized-yellow);
+  --blue: var(--solarized-blue);
+  --red: var(--solarized-red);
+  --green: var(--solarized-cyan);
+  --white: white;
+  --black: black;
+  --purple: var(--solarized-violet);
+  --pink: var(--solarized-magenta);
+  /**/
+  --orange: var(--solarized-orange);
+  --magenta: var(--solarized-magenta);
+  --violet: var(--solarized-violet);
+  --cyan: var(--solarized-cyan);
+}
+
+h1 {
+  color: var(--text-h1);
+  /* text-shadow: 0px 0px 5px var(--black); */
+}
+
 html, body {
-  background: #faf8ef;
-  color: #343838;
-  font-family: 'Gentium Book Basic', serif;
-}
-
-#score {
-  font-size: 40px;
-  font-weight: bold;
-}
-
-#topright {
-  font-size: 18px;
+  background: var(--bg-color);
 }
 
 #topright-button {
-  background: #9D9D97;
-  color: #f9f6f2;
+  background: var(--button-bg-color);
+  color: var(--button-txt-color);
+  /* text-shadow: 3px 3px 2px var(--white); */
+}
+
+#grid {
+  background: var(--grid-color);
+  /*#e5e5e2; */
 }
 
 #overlay {
   background: rgba(250, 248, 239, 0.8);
 }
 
-#grid {
-  background: plum;
-  /*#e5e5e2; */
-}
-
-#bottombar {
-  font-size: 18px;
-  color: #bbb;
-}
-
 .codePeg-0 {
-  background: yellow;
+  background: var(--yellow);
+  /*yellow;*/
 }
 
 .codePeg-1 {
-  background: blue;
+  background: var(--blue);
 }
 
 .codePeg-2 {
-  background: red;
+  background: var(--red);
 }
 
 .codePeg-3 {
-  background: green;
+  background: var(--green);
 }
 
 .codePeg-4 {
-  background: white;
+  background: var(--white);
 }
 
 .codePeg-5 {
-  background: black;
+  background: var(--black);
 }
 
 .codePeg-6 {
-  background: purple;
+  background: var(--purple);
 }
 
 .codePeg-7 {
-  background: pink;
+  background: var(--pink);
 }
 
 .keyPeg-0 {
@@ -82,23 +115,9 @@ html, body {
 
 /* mobile settings */
 
-@media screen and (max-width: 520px) {
+/* @media screen and (max-width: 520px) {
   #score {
     font-size: 34px;
   }
-  #overlay {
-    font-size: 34px;
-  }
-  .block {
-    font-size: 24px;
-  }
-  .block-1024 {
-    font-size: 19px;
-  }
-  .block-2048 {
-    font-size: 19px;
-  }
-  .block-over {
-    font-size: 16px;
-  }
-}
+
+} */

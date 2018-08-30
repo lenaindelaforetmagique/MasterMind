@@ -4,6 +4,12 @@ html, body {
   position: relative;
   width: 500px;
   margin: 0px auto;
+  font-family: 'Gentium Book Basic', serif;
+}
+
+h1 {
+  font-size: 40px;
+  /* font-weight: bold; */
 }
 
 nav {
@@ -81,44 +87,4 @@ li {
   line-height: 50px;
   font-size: 20px;
   font-weight: bold;
-}
-
-#topbar {
-  position: relative;
-  height: 40px;
-  margin-bottom: 10px;
-  text-align: center;
-}
-
-#score {
-  display: inline-block;
-  line-height: 40px;
-}
-
-#topright {
-  float: right;
-  text-align: center;
-}
-
-#next-block {
-  display: inline-block;
-  width: 40px;
-  height: 40px;
-  line-height: 40px;
-  border-radius: 6px;
-  visibility: hidden;
-}
-
-#bottombar {
-  position: fixed;
-  width: 500px;
-  bottom: 10px;
-  margin: 0 auto;
-  text-align: right;
-  cursor: pointer;
-}
-
-#bottombar div {
-  display: inline-block;
-  margin: 0 10px;
 }
