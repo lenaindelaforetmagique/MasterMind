@@ -23,7 +23,7 @@ html, body {
 }
 
 #grid {
-  background: gray;
+  background: plum;
   /*#e5e5e2; */
 }
 
@@ -32,36 +32,52 @@ html, body {
   color: #bbb;
 }
 
-.block-0 {
+.codePeg-0 {
   background: yellow;
 }
 
-.block-1 {
+.codePeg-1 {
   background: blue;
 }
 
-.block-2 {
+.codePeg-2 {
   background: red;
 }
 
-.block-3 {
+.codePeg-3 {
   background: green;
 }
 
-.block-4 {
+.codePeg-4 {
   background: white;
 }
 
-.block-5 {
+.codePeg-5 {
   background: black;
 }
 
-.block-6 {
+.codePeg-6 {
   background: purple;
 }
 
-.block-7 {
+.codePeg-7 {
   background: pink;
+}
+
+.keyPeg-0 {
+  background: black;
+  box-shadow: 1px 1px 2px black;
+}
+
+.keyPeg-1 {
+  background: white;
+  box-shadow: 1px 1px 2px black;
+}
+
+.keyPeg-2 {
+  border-style: dashed;
+  border-width: 1px;
+  border-color: black;
 }
 
 /* mobile settings */

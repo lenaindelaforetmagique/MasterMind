@@ -27,10 +27,11 @@ Game.prototype.reset = function() {
     this.target.push(Math.floor(Math.random() * this.nbCol));
   };
 
-  console.log(this.target);
+  console.log("Solution :", this.target);
 };
 
 Game.prototype.noteTry = function(try_) {
+  this.tryCount += 1;
   var a = 0;
   var b = 0;
   var tar1 = [];
@@ -48,13 +49,15 @@ Game.prototype.noteTry = function(try_) {
   tar1.sort();
   try1.sort();
 
-  while (tar1.length > 0 && try1.lenght > 0) {
+  while (tar1.length > 0 && try1.length > 0) {
     if (tar1[0] < try1[0]) {
       tar1.shift();
     } else if (tar1[0] > try1[0]) {
       try1.shift();
     } else {
       b += 1;
+      tar1.shift();
+      try1.shift();
     }
   };
   return [a, b];

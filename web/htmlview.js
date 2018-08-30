@@ -42,12 +42,10 @@ HTMLView.prototype.loadTopBar = function() {
   // Boutons de couleur
   for (let i = 0; i < game.nbCol; i++) {
     let dom = document.createElement("li");
-    dom.className = "block block-" + i;
-    // dom.style.left = i * 100 + "px";
-    // dom.style.top = i * width + "px";
+    dom.className = "codePeg codePeg-" + i;
 
     dom.onclick = function() {
-      thiz.addPawn(i);
+      thiz.addPeg(eval(dom.className.split('-').pop()));
     };
     thiz.palette.appendChild(dom);
   };
@@ -55,13 +53,13 @@ HTMLView.prototype.loadTopBar = function() {
   let dom = null;
   let dom2 = null;
 
-  // Bouton Reset
+  // Bouton Reset-try
   dom = document.createElement("li");
   dom2 = document.createElement("span"); //span
   dom2.id = "topright-button";
-  dom2.innerHTML = "Reset";
-  dom.onclick = function() {
-    thiz.resetAction();
+  dom2.innerHTML = "ResetTry";
+  dom2.onclick = function() {
+    thiz.resetTry();
   };
   dom.appendChild(dom2);
   thiz.palette.appendChild(dom);
@@ -72,69 +70,117 @@ HTMLView.prototype.loadTopBar = function() {
   dom2 = document.createElement("span"); //span
   dom2.id = "topright-button";
   dom2.innerHTML = "Essayer";
-  dom.onclick = function() {
-    thiz.tryAction();
+  dom2.onclick = function() {
+    thiz.checkTry();
   };
   dom.appendChild(dom2);
-
   thiz.palette.appendChild(dom);
 
 };
 
-HTMLView.prototype.addPawn = function(color) {
+HTMLView.prototype.addPeg = function(color) {
   if (this.try.length < this.game.nbDig) {
     this.try.push(color);
-    // console.log(this.try);
     this.updateTry();
+    // console.log(this.try);
   }
-
 };
 
-HTMLView.prototype.resetAction = function() {
+HTMLView.prototype.resetTry = function() {
   this.try = [];
   this.updateTry();
 };
 
 
-HTMLView.prototype.tryAction = function() {
-  console.log("coucou");
+HTMLView.prototype.checkTry = function() {
   if (this.try.length === this.game.nbDig) {
-    console.log("check!");
     let note = this.game.noteTry(this.try);
-    console.log(note);
+    console.log("Current Try :", this.try);
+    // console.log("checkNote", note);
+    let a = note[0];
+    this.printNote(note);
+
     let dom = document.getElementById("currentTry");
     dom.id = "oldTry";
-    this.resetAction();
+
+    if (a === this.game.nbDig) {
+      this.endOfGame();
+    } else {
+      this.resetTry();
+    }
   }
 };
 
 
 HTMLView.prototype.updateTry = function() {
-
   let dom = document.getElementById("currentTry");
   if (dom !== null) {
     this.grid.removeChild(dom);
   }
 
-  dom = document.createElement("ul");
+  dom = document.createElement("div");
   dom.id = "currentTry";
 
-  // Boutons de couleur
+  // Played pegs
   for (let i = 0; i < this.try.length; i++) {
-    let dom2 = document.createElement("li");
-    dom2.className = "block block-" + this.try[i];
+    let dom2 = document.createElement("div");
+    dom2.className = "codePeg codePeg-" + this.try[i];
+    let width = 40; //dom2.offsetWidth;
+    let height = 40; //dom2.offsetHeight;
+    // console.log(width, height);
+    dom2.style.position = "absolute";
+    dom2.style.left = i * width + "px";
+    dom2.style.top = this.game.tryCount * height + "px";
     dom.appendChild(dom2);
   };
   this.grid.appendChild(dom);
+};
 
+HTMLView.prototype.printNote = function(note) {
+  let dom = document.getElementById("currentTry");
+  if (dom === null) {
+    return;
+  }
+  let dom2 = document.createElement("div");
+  dom2.id = "keyPegContainer";
+
+  for (let i = 0; i < this.game.nbDig; i++) {
+    let u = Math.floor(i / 2);
+    let v = i % 2;
+    let dom3 = document.createElement("div");
+    if (note[0] > 0) {
+      dom3.className = "keyPeg keyPeg-0";
+      note[0] -= 1;
+    } else if (note[1] > 0) {
+      dom3.className = "keyPeg keyPeg-1";
+      note[1] -= 1;
+    } else {
+      dom3.className = "keyPeg keyPeg-2";
+    }
+    let width = 20; //dom3.offsetWidth;
+    let height = 20; //dom3.offsetHeight;
+    dom3.style.left = (this.game.nbDig * 40 + u * width) + "px";
+    dom3.style.top = ((this.game.tryCount - 1) * 40 + v * height) + "px";
+    dom2.appendChild(dom3);
+  };
+  dom.appendChild(dom2);
+  //this.grid.appendChild(dom);
 
 };
+
+
+HTMLView.prototype.endOfGame = function() {
+  this.overlay.innerHTML = "Trouvé en " + this.game.tryCount + " coups !";
+  this.overlay.style.left = "0px";
+
+  // this.toprightButton.innerHTML = "Restart";
+};
+
 
 
 
 HTMLView.prototype.makeBlock = function(block) {
   var game = this.game;
-
 
   this.updateValue(block);
   this.placeBlock(block);
@@ -142,11 +188,9 @@ HTMLView.prototype.makeBlock = function(block) {
 
 HTMLView.prototype.placeBlock = function(block, merge) {
   var firstTime = block.dom.style.left == "";
-
   var width = block.dom.offsetWidth;
   block.dom.style.left = block.v * width + "px";
   block.dom.style.top = block.u * width + "px";
-
 };
 
 HTMLView.prototype.removeBlock = function(block) {
