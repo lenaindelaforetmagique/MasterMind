@@ -1,4 +1,4 @@
-:root {
+/* :root {
   --solarized-base03: #002b36;
   --solarized-base02: #073642;
   --solarized-base01: #586e75;
@@ -15,59 +15,34 @@
   --solarized-blue: #268bd2;
   --solarized-cyan: #2aa198;
   --solarized-green: #859900;
-  /*-----------*/
-  /*-----------*/
-  --bg-color: var(--solarized-base3);
-  --text-h1: var(--solarized-base00);
-  --grid-color: var(--solarized-base2);
-  --grid-OT-color: var(--solarized-base1);
-  --grid-CT-color: var(--solarized-base0);
-  /*var(--solarized-base03);*/
-  /*-Boutons-*/
-  --button-bg-color: var(--solarized-base00);
-  --button-txt-color: var(--solarized-base3);
-  /*--*/
-  --yellow: var(--solarized-yellow);
-  --blue: var(--solarized-blue);
-  --red: var(--solarized-red);
-  --green: var(--solarized-cyan);
-  --white: white;
-  --black: black;
-  --purple: var(--solarized-violet);
-  --pink: var(--solarized-magenta);
-  /**/
-  --orange: var(--solarized-orange);
-  --magenta: var(--solarized-magenta);
-  --violet: var(--solarized-violet);
-  --cyan: var(--solarized-cyan);
-}
+} */
 
 h1 {
-  color: var(--text-h1);
-  /* text-shadow: 0px 0px 5px var(--black); */
+  color: #657b83;
+  /* text-shadow: 0px 0px 5px var(black); */
 }
 
 html, body {
-  background: var(--bg-color);
+  background: #fdf6e3;
 }
 
 #topright-button {
-  background: var(--button-bg-color);
-  color: var(--button-txt-color);
-  /* text-shadow: 3px 3px 2px var(--white); */
+  background: #657b83;
+  color: #fdf6e3;
+  /* text-shadow: 3px 3px 2px var(white); */
 }
 
 #grid {
-  background: var(--grid-color);
+  background: #eee8d5;
   /*#e5e5e2; */
 }
 
 #currentTry {
-  background: var(--grid-CT-color);
+  background: #839496;
 }
 
 #oldTry {
-  background: var(--grid-OT-color);
+  background: #93a1a1;
 }
 
 #overlay {
@@ -75,36 +50,36 @@ html, body {
 }
 
 .codePeg-0 {
-  background: var(--yellow);
+  background: #b58900;
   /*yellow;*/
 }
 
 .codePeg-1 {
-  background: var(--blue);
+  background: #268bd2;
 }
 
 .codePeg-2 {
-  background: var(--red);
+  background: #dc322f;
 }
 
 .codePeg-3 {
-  background: var(--green);
+  background: #2aa198;
 }
 
 .codePeg-4 {
-  background: var(--white);
+  background: white;
 }
 
 .codePeg-5 {
-  background: var(--black);
+  background: black;
 }
 
 .codePeg-6 {
-  background: var(--purple);
+  background: #6c71c4;
 }
 
 .codePeg-7 {
-  background: var(--pink);
+  background: #d33682;
 }
 
 .keyPeg-0 {
