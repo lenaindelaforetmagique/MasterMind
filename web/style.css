@@ -18,8 +18,10 @@
   /*-----------*/
   /*-----------*/
   --bg-color: var(--solarized-base3);
-  --grid-color: var(--solarized-base2);
   --text-h1: var(--solarized-base00);
+  --grid-color: var(--solarized-base2);
+  --grid-OT-color: var(--solarized-base1);
+  --grid-CT-color: var(--solarized-base0);
   /*var(--solarized-base03);*/
   /*-Boutons-*/
   --button-bg-color: var(--solarized-base00);
@@ -58,6 +60,14 @@ html, body {
 #grid {
   background: var(--grid-color);
   /*#e5e5e2; */
+}
+
+#currentTry {
+  background: var(--grid-CT-color);
+}
+
+#oldTry {
+  background: var(--grid-OT-color);
 }
 
 #overlay {

@@ -102,6 +102,7 @@ HTMLView.prototype.checkTry = function() {
 
     let dom = document.getElementById("currentTry");
     dom.id = "oldTry";
+    dom.className = "oldTry";
 
     if (a === this.game.nbDig) {
       this.endOfGame();
@@ -120,6 +121,7 @@ HTMLView.prototype.updateTry = function() {
 
   dom = document.createElement("div");
   dom.id = "currentTry";
+  dom.className = "currentTry";
 
   // Played pegs
   for (let i = 0; i < this.try.length; i++) {
