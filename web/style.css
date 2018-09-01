@@ -26,26 +26,31 @@ html, body {
   background: #fdf6e3;
 }
 
-#topright-button {
+#button {
   background: #657b83;
   color: #fdf6e3;
   /* text-shadow: 3px 3px 2px var(white); */
 }
 
 #grid {
-  background: #eee8d5;
+  background: #657b83;
   /*#e5e5e2; */
 }
 
 #currentTry {
-  background: #839496;
+  /* background: #839496; */
 }
 
 #oldTry {
-  background: #93a1a1;
+  /* background: #93a1a1; */
 }
 
 #overlay {
+  /* background: rgba(250, 0, 0, 1); */
+  /*248, 239, 0.8);*/
+}
+
+#overlay-active {
   background: rgba(250, 248, 239, 0.8);
 }
 
@@ -84,17 +89,16 @@ html, body {
 
 .keyPeg-0 {
   background: black;
-  box-shadow: 1px 1px 2px black;
+  box-shadow: 1px 1px 1px black;
 }
 
 .keyPeg-1 {
   background: white;
-  box-shadow: 1px 1px 2px black;
+  box-shadow: 1px 1px 1px black;
 }
 
 .keyPeg-2 {
   border-style: dashed;
-  border-width: 1px;
   border-color: black;
 }
 

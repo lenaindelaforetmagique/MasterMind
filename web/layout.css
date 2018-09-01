@@ -1,9 +1,7 @@
 html, body {
-  margin: 0;
+  width: 300px;
+  margin: 0 auto;
   padding: 0;
-  position: relative;
-  width: 500px;
-  margin: 0px auto;
   font-family: 'Gentium Book Basic', serif;
 }
 
@@ -12,10 +10,84 @@ h1 {
   /* font-weight: bold; */
 }
 
-nav {
-  /* height: 50px; */
-  flex: 100%;
+#container {
+  /* align-items: center; */
+  position: relative;
+  width: auto;
+  height: 500px;
+  margin: 0px auto;
+}
+
+#board {
+  font-size: 0px;
+  /* line-height: 50px; */
   display: flex;
+  background-color: #073642;
+  left: 0px;
+  right: 0px;
+  border-radius: 10px;
+  box-shadow: 2px 2px 3px black;
+  text-align: center;
+}
+
+#topbar {
+  position: relative;
+  height: 40px;
+  margin-bottom: 10px;
+  text-align: center;
+}
+
+#button {
+  display: inline-block;
+  height: 40px;
+  border-radius: 6px;
+  padding: 0 15px;
+  line-height: 40px;
+  cursor: pointer;
+  margin: 3px;
+}
+
+#scores {
+  margin: 3px;
+  padding: 2px;
+  border-width: 1px;
+  width: 50px;
+  border-style: solid;
+  border-color: black;
+  background: #586e75;
+  left: 0px;
+  right: 0px;
+  border-radius: 10px;
+  height: 400px;
+}
+
+#grid {
+  margin: 3px 0px;
+  padding: 2px;
+  border-width: 1px;
+  width: 160px;
+  border-style: solid;
+  border-color: black;
+  border-radius: 10px;
+  background: gray;
+  left: 0px;
+  right: 0px;
+  height: 400px;
+}
+
+#pegBank {
+  width: 60px;
+  vertical-align: middle;
+  display: inline;
+  margin: 3px;
+  padding: 2px;
+  border-width: 1px;
+  border-style: solid;
+  border-color: black;
+  background: #002b36;
+  left: 0px;
+  right: 0px;
+  border-radius: 10px;
 }
 
 ul {
@@ -35,51 +107,49 @@ li {
   display: inline-block;
   height: 30px;
   width: 30px;
-  margin: 10px;
-  border-radius: 20px;
-  line-height: 40px;
-  /* cursor: pointer; */
-  box-shadow: 2px 2px 3px black;
+  margin: 5px;
+  border-radius: 15px;
+  box-shadow: 2px 2px 2px black;
 }
 
 .keyPeg {
-  position: absolute;
-  display: inline-block;
-  height: 15px;
-  width: 15px;
-  margin: 5px;
+  display: inline-flex;
+  /* inline-block; */
+  height: 14px;
+  width: 14px;
+  margin: 1px 1px;
+  padding: 0;
   border-radius: 5px;
+  /* border-style: dashed; */
+  /* border-width: 1px; */
+  /* border-color: black; */
   /* padding: 5px 5px; */
-  line-height: 20px;
+  /* line-height: 20px; */
   /* cursor: pointer; */
 }
 
-#grid {
-  position: relative;
-  width: 300px;
-  height: 400px;
-  z-index: 0;
-  overflow: hidden;
-  text-align: left;
-  cursor: default;
-}
-
-#topright-button {
-  display: inline-block;
-  height: 40px;
-  border-radius: 6px;
-  padding: 0 15px;
-  line-height: 40px;
-  cursor: pointer;
-  margin: 3px;
+.keyPeg-2 {
+  border-width: 1px;
+  height: 12px;
+  width: 12px;
+  margin: 1px 1px;
+  padding: 0;
+  border-radius: 4px;
 }
 
 #overlay {
-  display: inline-block;
-  margin: 150px auto;
-  position: relative;
+  position: absolute;
+  height: 0px;
+  top: 100%;
+  left: 100%;
+}
+
+#overlay-active {
+  position: absolute;
+  width: 200px;
   height: 50px;
-  left: 110%;
+  left: 20px;
+  top: 120px;
   transition: left 0.4s;
   padding: 0 20px;
   z-index: 100;
@@ -87,14 +157,29 @@ li {
   line-height: 50px;
   font-size: 20px;
   font-weight: bold;
+  text-align: center;
 }
 
-/*
 #currentTry {
   display: inline-block;
-  position: relative;
-  width: 100px;
-  height: 50px;
+  padding: 0;
+  margin: 0;
+  display: flex;
 }
 
-#oldTry {} */
+#oldTry {
+  display: inline-block;
+  padding: 0;
+  margin: 0;
+  display: flex;
+}
+
+#keyPegContainer {
+  /* background: #839496; */
+  display: inline-block;
+  padding: 4px 2px 0px;
+  margin: 0px;
+  /* display: flex; */
+  height: 36px;
+  width: 36px;
+}

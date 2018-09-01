@@ -21,18 +21,42 @@
 // THE SOFTWARE.
 
 HTMLView = function(game) {
-  // this.topbar = document.querySelector("#topbar");
-  this.palette = document.querySelector("#palette");
-  // this.toprightButton = document.querySelector("#topright-button");
+  this.topbar = document.querySelector("#topbar");
+
+  this.pegBank = document.querySelector("#pegBank");
   this.grid = document.querySelector("#grid");
+  this.scores = document.querySelector("#scores");
+
   this.overlay = document.querySelector("#overlay");
 
   this.game = game;
 
   this.try = [];
 
+  // this.setupView();
   this.loadTopBar();
   // this.setupUpdate();
+};
+
+
+HTMLView.prototype.setupView = function() {
+  let a = domWidth(document.getElementById("scores"));
+  let b = domWidth(document.getElementById("grid"));
+  let c = domWidth(document.getElementById("pegBank"));
+  console.log(a, b, c);
+  console.log(a + b + c);
+  console.log(document.body.clientWidth);
+  // document.body.clientWidth = a + b + c;
+};
+
+domWidth = function(element) {
+  let style = element.currentStyle || window.getComputedStyle(element),
+    width = element.offsetWidth, // or use style.width
+    margin = parseFloat(style.marginLeft) + parseFloat(style.marginRight),
+    padding = parseFloat(style.paddingLeft) + parseFloat(style.paddingRight),
+    border = parseFloat(style.borderLeftWidth) + parseFloat(style.borderRightWidth);
+
+  return (width + margin); // - padding - border);
 };
 
 
@@ -41,13 +65,14 @@ HTMLView.prototype.loadTopBar = function() {
   var game = this.game;
   // Boutons de couleur
   for (let i = 0; i < game.nbCol; i++) {
-    let dom = document.createElement("li");
+    let dom = document.createElement("div");
     dom.className = "codePeg codePeg-" + i;
-
+    dom.setAttribute("style", "cursor: pointer;");
+    /* cursor: pointer; */
     dom.onclick = function() {
       thiz.addPeg(eval(dom.className.split('-').pop()));
     };
-    thiz.palette.appendChild(dom);
+    thiz.pegBank.appendChild(dom);
   };
 
   let dom = null;
@@ -56,25 +81,25 @@ HTMLView.prototype.loadTopBar = function() {
   // Bouton Reset-try
   dom = document.createElement("li");
   dom2 = document.createElement("span"); //span
-  dom2.id = "topright-button";
+  dom2.id = "button";
   dom2.innerHTML = "ResetTry";
   dom2.onclick = function() {
     thiz.resetTry();
   };
   dom.appendChild(dom2);
-  thiz.palette.appendChild(dom);
+  thiz.topbar.appendChild(dom);
 
 
   // Bouton Essayer
   dom = document.createElement("li");
   dom2 = document.createElement("span"); //span
-  dom2.id = "topright-button";
+  dom2.id = "button";
   dom2.innerHTML = "Essayer";
   dom2.onclick = function() {
     thiz.checkTry();
   };
   dom.appendChild(dom2);
-  thiz.palette.appendChild(dom);
+  thiz.topbar.appendChild(dom);
 
 };
 
@@ -121,59 +146,41 @@ HTMLView.prototype.updateTry = function() {
 
   dom = document.createElement("div");
   dom.id = "currentTry";
-  dom.className = "currentTry";
 
   // Played pegs
   for (let i = 0; i < this.try.length; i++) {
     let dom2 = document.createElement("div");
     dom2.className = "codePeg codePeg-" + this.try[i];
-    let width = 40; //dom2.offsetWidth;
-    let height = 40; //dom2.offsetHeight;
-    // console.log(width, height);
-    dom2.style.position = "absolute";
-    dom2.style.left = i * width + "px";
-    dom2.style.top = this.game.tryCount * height + "px";
     dom.appendChild(dom2);
   };
   this.grid.appendChild(dom);
 };
 
 HTMLView.prototype.printNote = function(note) {
-  let dom = document.getElementById("currentTry");
-  if (dom === null) {
-    return;
-  }
-  let dom2 = document.createElement("div");
-  dom2.id = "keyPegContainer";
+  let dom = document.createElement("div");
+  dom.id = "keyPegContainer";
 
   for (let i = 0; i < this.game.nbDig; i++) {
-    let u = Math.floor(i / 2);
-    let v = i % 2;
-    let dom3 = document.createElement("div");
+    let dom2 = document.createElement("div");
     if (note[0] > 0) {
-      dom3.className = "keyPeg keyPeg-0";
+      dom2.className = "keyPeg keyPeg-0";
       note[0] -= 1;
     } else if (note[1] > 0) {
-      dom3.className = "keyPeg keyPeg-1";
+      dom2.className = "keyPeg keyPeg-1";
       note[1] -= 1;
     } else {
-      dom3.className = "keyPeg keyPeg-2";
+      dom2.className = "keyPeg keyPeg-2";
     }
-    let width = 20; //dom3.offsetWidth;
-    let height = 20; //dom3.offsetHeight;
-    dom3.style.left = (this.game.nbDig * 40 + u * width) + "px";
-    dom3.style.top = ((this.game.tryCount - 1) * 40 + v * height) + "px";
-    dom2.appendChild(dom3);
+    dom.appendChild(dom2);
   };
-  dom.appendChild(dom2);
-  //this.grid.appendChild(dom);
-
+  this.scores.appendChild(dom);
 };
 
 
 HTMLView.prototype.endOfGame = function() {
   this.overlay.innerHTML = "Trouvé en " + this.game.tryCount + " coups !";
-  this.overlay.style.left = "0px";
+  this.overlay.id = "overlay-active";
+  // this.overlay.style.top = "100px";
 
   // this.toprightButton.innerHTML = "Restart";
 };
@@ -208,16 +215,6 @@ HTMLView.prototype.bounce = function(block) {
   block.dom.classList.add("bouncing");
 };
 
-HTMLView.prototype.setupUpdate = function() {
-  var thiz = this;
-
-  var updateCB = function(timestamp) {
-    thiz.update(timestamp);
-    window.requestAnimationFrame(updateCB);
-  };
-
-  updateCB(0);
-};
 
 HTMLView.prototype.update = function(ts) {
   this.now = ts;
@@ -231,66 +228,10 @@ HTMLView.prototype.update = function(ts) {
   }
 };
 
-HTMLView.prototype.setNextFall = function(ms) {
-  this.nextFall = this.now + ms;
-};
-
-HTMLView.prototype.updateScore = function() {
-  this.score.innerHTML = this.game.score;
-};
-
-HTMLView.prototype.updateNextBlock = function() {
-  this.nextBlock.innerHTML = this.game.nextValue;
-  this.nextBlock.className = "block-" + this.game.nextValue;
-  this.nextBlock.style.visibility = "visible";
-};
-
-HTMLView.prototype.togglePause = function() {
-  if (!this.pause) {
-    this.pause = true;
-    this.overlay.innerHTML = "Paused...";
-    this.overlay.style.left = "0px";
-    this.toprightButton.innerHTML = "Resume";
-  } else {
-    this.pause = false;
-    this.overlay.style.left = "110%";
-    this.toprightButton.innerHTML = "Pause";
-  }
-};
-
 HTMLView.prototype.gameOver = function() {
   this.running = false;
   this.overlay.innerHTML = "Game over!";
   this.overlay.style.left = "0px";
 
   this.toprightButton.innerHTML = "Restart";
-};
-
-function isFullScreen() {
-  return document.fullscreenElement ||
-    document.mozFullScreenElement ||
-    document.webkitFullscreenElement ||
-    document.msFullscreenElement;
-};
-
-function goFullScreen() {
-  var doc = document.documentElement;
-
-  if (doc.requestFullscreen)
-    doc.requestFullscreen();
-  else if (doc.mozRequestFullScreen)
-    doc.mozRequestFullScreen();
-  else if (doc.webkitRequestFullScreen)
-    doc.webkitRequestFullScreen();
-  else if (doc.msRequestFullScreen)
-    doc.msRequestFullScreen();
-};
-
-function setStyle(name) {
-  var links = document.getElementsByTagName("link");
-  for (var i = 0; i < links.length; i++) {
-    if (links[i].rel.indexOf("stylesheet") != -1 && links[i].title) {
-      links[i].disabled = (links[i].title != name);
-    }
-  }
 };
