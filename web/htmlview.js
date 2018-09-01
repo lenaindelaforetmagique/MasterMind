@@ -20,10 +20,17 @@
 // OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN
 // THE SOFTWARE.
 
+removeChildren = function(dom) {
+  while (dom.firstChild) {
+    dom.removeChild(dom.firstChild);
+  };
+};
+
+
 HTMLView = function(game) {
   this.container = document.querySelector("#container")
   this.topbar = document.querySelector("#topbar");
-
+  this.board = document.querySelector("#board");
   this.pegBank = document.querySelector("#pegBank");
   this.grid = document.querySelector("#grid");
   this.scores = document.querySelector("#scores");
@@ -31,13 +38,27 @@ HTMLView = function(game) {
   this.overlay = document.querySelector("#overlay");
 
   this.game = game;
+  this.canPlay = true;
 
   this.try = [];
 
   this.setupView();
   this.loadTopBar();
   this.loadPegBank();
+  this.freezeMove(this.board);
   // this.setupUpdate();
+};
+
+HTMLView.prototype.freezeMove = function(dom) {
+
+  dom.addEventListener("mousemove", function(e) {
+    e.preventDefault();
+  });
+
+  dom.addEventListener("touchmove", function(e) {
+    e.preventDefault();
+  });
+
 };
 
 
@@ -64,8 +85,6 @@ HTMLView.prototype.setupView = function() {
     };
 
 };
-
-
 
 
 domWidth = function(element) {
@@ -96,7 +115,10 @@ HTMLView.prototype.loadTopBar = function() {
   dom.id = "button";
   dom.innerHTML = "Clear";
   dom.onclick = function() {
-    thiz.resetTry();
+    console.log(thiz.canPlay);
+    if (thiz.canPlay) {
+      thiz.resetTry();
+    };
   };
   thiz.topbar.appendChild(dom);
 
@@ -106,7 +128,10 @@ HTMLView.prototype.loadTopBar = function() {
   dom.id = "button";
   dom.innerHTML = "Play";
   dom.onclick = function() {
-    thiz.checkTry();
+    console.log(thiz.canPlay);
+    if (thiz.canPlay) {
+      thiz.checkTry();
+    };
   };
   thiz.topbar.appendChild(dom);
 
@@ -130,17 +155,16 @@ HTMLView.prototype.loadPegBank = function() {
 };
 
 HTMLView.prototype.newGame = function() {
-  while (this.grid.firstChild) {
-    this.grid.removeChild(this.grid.firstChild);
-  };
+  removeChildren(this.scores);
+  removeChildren(this.grid);
 
-  while (this.scores.firstChild) {
-    this.scores.removeChild(this.scores.firstChild);
-  };
-
+  removeChildren(this.overlay);
   this.overlay.innerHTML = "";
   this.overlay.id = "overlay";
+
   this.resetTry();
+
+  this.canPlay = true;
   this.game.init();
 };
 
@@ -172,6 +196,8 @@ HTMLView.prototype.checkTry = function() {
 
     if (a === this.game.nbDig) {
       this.endOfGame();
+    } else if (this.game.tryCount === 10) {
+      this.gameOver();
     } else {
       this.resetTry();
     }
@@ -182,20 +208,30 @@ HTMLView.prototype.checkTry = function() {
 HTMLView.prototype.updateTry = function() {
   let dom = document.getElementById("currentTry");
   if (dom !== null) {
-    this.grid.removeChild(dom);
+    dom.remove();
   }
 
-  dom = document.createElement("div");
+  dom = this.showCombination(this.try);
   dom.id = "currentTry";
 
-  // Played pegs
-  for (let i = 0; i < this.try.length; i++) {
-    let dom2 = document.createElement("div");
-    dom2.className = "codePeg codePeg-" + this.try[i];
-    dom.appendChild(dom2);
-  };
   this.grid.appendChild(dom);
 };
+
+
+HTMLView.prototype.showCombination = function(table) {
+  console.log(table);
+  let dom = document.createElement("div");
+
+  for (let i = 0; i < table.length; i++) {
+    let dom2 = document.createElement("div");
+    dom2.className = "codePeg codePeg-" + table[i];
+    dom.appendChild(dom2);
+    console.log(table[i]);
+  };
+  return dom;
+};
+
+
 
 HTMLView.prototype.printNote = function(note) {
   let dom = document.createElement("div");
@@ -219,60 +255,27 @@ HTMLView.prototype.printNote = function(note) {
 
 
 HTMLView.prototype.endOfGame = function() {
-  this.overlay.innerHTML = "Trouvé en " + this.game.tryCount + " coups !";
+  // overlay End of game
+  var a = this.game.tryCount;
+  this.overlay.innerHTML = "Trouvé en " + a + (a > 1 ? " coups !" : " coup !!")
   this.overlay.id = "overlay-active";
-  // this.overlay.style.top = "100px";
 
-  // this.toprightButton.innerHTML = "Restart";
-};
-
-
-
-
-HTMLView.prototype.makeBlock = function(block) {
-  var game = this.game;
-
-  this.updateValue(block);
-  this.placeBlock(block);
-};
-
-HTMLView.prototype.placeBlock = function(block, merge) {
-  var firstTime = block.dom.style.left == "";
-  var width = block.dom.offsetWidth;
-  block.dom.style.left = block.v * width + "px";
-  block.dom.style.top = block.u * width + "px";
-};
-
-HTMLView.prototype.removeBlock = function(block) {
-  this.grid.removeChild(block.dom);
-};
-
-HTMLView.prototype.updateValue = function(block) {
-  block.dom.className = "block block-" + (block.value <= 2048 ? block.value : "over");
-  block.dom.innerHTML = block.value;
-};
-
-HTMLView.prototype.bounce = function(block) {
-  block.dom.classList.add("bouncing");
-};
-
-
-HTMLView.prototype.update = function(ts) {
-  this.now = ts;
-
-  if (!this.running || this.pause)
-    return;
-
-  if (this.nextFall != null && ts >= this.nextFall) {
-    this.nextFall = null;
-    this.game.stepFalling();
-  }
+  this.canPlay = false;
 };
 
 HTMLView.prototype.gameOver = function() {
-  this.running = false;
-  this.overlay.innerHTML = "Game over!";
-  this.overlay.style.left = "0px";
+  this.canPlay = false;
 
-  this.toprightButton.innerHTML = "Restart";
+  // overlay Game Over
+  this.overlay.innerHTML = "Game over!";
+  this.overlay.id = "overlay-active";
+
+
+
+  let dom = this.showCombination(this.game.solution);
+  dom.id = "solution";
+
+  this.overlay.appendChild(dom);
+
+
 };

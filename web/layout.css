@@ -1,3 +1,5 @@
+/* Only dimensions here */
+
 html, body {
   width: 300px;
   margin: 0 auto;
@@ -18,18 +20,6 @@ h1 {
   margin: 0px auto;
 }
 
-#board {
-  font-size: 0px;
-  /* line-height: 50px; */
-  display: flex;
-  background-color: #073642;
-  left: 0px;
-  right: 0px;
-  border-radius: 10px;
-  box-shadow: 2px 2px 3px black;
-  text-align: center;
-}
-
 #topbar {
   position: relative;
   height: 40px;
@@ -47,14 +37,20 @@ h1 {
   margin: 3px;
 }
 
+#board {
+  font-size: 0px;
+  display: flex;
+  left: 0px;
+  right: 0px;
+  border-radius: 10px;
+  text-align: center;
+}
+
 #scores {
   margin: 3px;
   padding: 2px;
   border-width: 1px;
   width: 50px;
-  border-style: solid;
-  border-color: black;
-  background: #586e75;
   left: 0px;
   right: 0px;
   border-radius: 10px;
@@ -66,10 +62,7 @@ h1 {
   padding: 2px;
   border-width: 1px;
   width: 160px;
-  border-style: solid;
-  border-color: black;
   border-radius: 10px;
-  background: gray;
   left: 0px;
   right: 0px;
   height: 400px;
@@ -82,59 +75,9 @@ h1 {
   margin: 3px;
   padding: 2px;
   border-width: 1px;
-  border-style: solid;
-  border-color: black;
-  background: #002b36;
   left: 0px;
   right: 0px;
   border-radius: 10px;
-}
-
-ul {
-  padding: 0;
-  list-style-type: none;
-  flex: 2;
-  display: flex;
-}
-
-li {
-  display: inline;
-  text-align: center;
-  /* flex: 1; */
-}
-
-.codePeg {
-  display: inline-block;
-  height: 30px;
-  width: 30px;
-  margin: 5px;
-  border-radius: 15px;
-  box-shadow: 2px 2px 2px black;
-}
-
-.keyPeg {
-  display: inline-flex;
-  /* inline-block; */
-  height: 14px;
-  width: 14px;
-  margin: 1px 1px;
-  padding: 0;
-  border-radius: 5px;
-  /* border-style: dashed; */
-  /* border-width: 1px; */
-  /* border-color: black; */
-  /* padding: 5px 5px; */
-  /* line-height: 20px; */
-  /* cursor: pointer; */
-}
-
-.keyPeg-2 {
-  border-width: 1px;
-  height: 12px;
-  width: 12px;
-  margin: 1px 1px;
-  padding: 0;
-  border-radius: 4px;
 }
 
 #overlay {
@@ -148,7 +91,7 @@ li {
 #overlay-active {
   position: absolute;
   width: 200px;
-  height: 50px;
+  /* height: 50px; */
   left: 20px;
   top: 120px;
   transition: left 0.4s;
@@ -162,25 +105,64 @@ li {
 }
 
 #currentTry {
-  display: inline-block;
+  display: flex;
   padding: 0;
   margin: 0;
-  display: flex;
 }
 
 #oldTry {
-  display: inline-block;
+  display: flex;
   padding: 0;
   margin: 0;
-  display: flex;
+}
+
+#solution {
+  /* display: flex; */
+  padding: 0;
+  margin: 0;
+  width: 160px;
+  display: inline-block;
+}
+
+.codePeg {
+  display: inline-block;
+  height: 30px;
+  width: 30px;
+  margin: 5px;
+  border-radius: 15px;
+  box-shadow: 2px 2px 2px black;
 }
 
 #keyPegContainer {
-  /* background: #839496; */
   display: inline-block;
+  /* display: flex; */
   padding: 4px 2px 0px;
   margin: 0px;
-  /* display: flex; */
   height: 36px;
   width: 36px;
 }
+
+.keyPeg {
+  display: inline-flex;
+  /* inline-block; */
+  height: 14px;
+  width: 14px;
+  margin: 1px 1px;
+  padding: 0;
+  border-radius: 5px;
+}
+
+/* mobile settings */
+
+/* @media screen and (max-width: 800px) {
+  #button {
+    background: red;
+  }
+} */
+
+/* @media screen and (max-width: 520px) {
+  #score {
+    font-size: 34px;
+  }
+
+} */

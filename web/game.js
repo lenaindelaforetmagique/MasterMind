@@ -35,7 +35,7 @@ Game = function(nbDigits, nbColors) {
   this.nbDig = nbDigits;
   this.nbCol = nbColors;
 
-  this.target = [];
+  this.solution = [];
   this.tryCount = 0;
 
   this.html = new HTMLView(this);
@@ -45,12 +45,12 @@ Game = function(nbDigits, nbColors) {
 
 Game.prototype.init = function() {
   this.tryCount = 0;
-  this.target = [];
+  this.solution = [];
   for (let i = 0; i < this.nbDig; i++) {
-    this.target.push(Math.floor(Math.random() * this.nbCol));
+    this.solution.push(Math.floor(Math.random() * this.nbCol));
   };
 
-  console.log("Solution :", this.target);
+  console.log("Solution :", this.solution);
 };
 
 Game.prototype.noteTry = function(try_) {
@@ -60,11 +60,11 @@ Game.prototype.noteTry = function(try_) {
   var tar1 = [];
   var try1 = [];
   // Count of common colors at same place
-  for (let i = 0; i < this.target.length; i++) {
-    if (this.target[i] === try_[i]) {
+  for (let i = 0; i < this.solution.length; i++) {
+    if (this.solution[i] === try_[i]) {
       a += 1;
     } else {
-      tar1.push(this.target[i]);
+      tar1.push(this.solution[i]);
       try1.push(try_[i]);
     }
   };
