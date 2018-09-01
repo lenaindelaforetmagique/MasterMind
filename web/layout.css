@@ -13,7 +13,7 @@ h1 {
 #container {
   /* align-items: center; */
   position: relative;
-  width: auto;
+  width: 300px;
   height: 500px;
   margin: 0px auto;
 }
