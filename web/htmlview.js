@@ -1,6 +1,6 @@
 // The MIT License (MIT)
 //
-// Copyright (c) 2015 Noé Falzon
+// Copyright (c) 2018 Xavier Morin
 //
 // Permission is hereby granted, free of charge, to any person obtaining a copy
 // of this software and associated documentation files (the "Software"), to deal
@@ -21,6 +21,7 @@
 // THE SOFTWARE.
 
 HTMLView = function(game) {
+  this.container = document.querySelector("#container")
   this.topbar = document.querySelector("#topbar");
 
   this.pegBank = document.querySelector("#pegBank");
@@ -33,21 +34,39 @@ HTMLView = function(game) {
 
   this.try = [];
 
-  // this.setupView();
+  this.setupView();
   this.loadTopBar();
+  this.loadPegBank();
   // this.setupUpdate();
 };
 
 
 HTMLView.prototype.setupView = function() {
-  let a = domWidth(document.getElementById("scores"));
-  let b = domWidth(document.getElementById("grid"));
-  let c = domWidth(document.getElementById("pegBank"));
-  console.log(a, b, c);
-  console.log(a + b + c);
-  console.log(document.body.clientWidth);
-  // document.body.clientWidth = a + b + c;
+  // let a = domWidth(document.getElementById("scores"));
+  // let b = domWidth(document.getElementById("grid"));
+  // let c = domWidth(document.getElementById("pegBank"));
+  // console.log(a, b, c);
+  // console.log(a + b + c);
+  // console.log(document.body.clientWidth);
+  // // document.body.clientWidth = a + b + c;
+
+  var thiz = this;
+
+  window.onload =
+    window.onresize = function() {
+      var height = window.innerHeight;
+      var margin = (height - thiz.container.offsetHeight) / 2;
+      if (margin < 0)
+        margin = 0;
+
+      thiz.container.style.marginTop = margin + "px";
+
+    };
+
 };
+
+
+
 
 domWidth = function(element) {
   let style = element.currentStyle || window.getComputedStyle(element),
@@ -59,8 +78,42 @@ domWidth = function(element) {
   return (width + margin); // - padding - border);
 };
 
-
 HTMLView.prototype.loadTopBar = function() {
+  var thiz = this;
+  let dom = null;
+
+  // Bouton New Game
+  dom = document.createElement("span");
+  dom.id = "button";
+  dom.innerHTML = "New Game";
+  dom.onclick = function() {
+    thiz.newGame();
+  };
+  thiz.topbar.appendChild(dom);
+
+  // Bouton Reset-try
+  dom = document.createElement("span");
+  dom.id = "button";
+  dom.innerHTML = "Clear";
+  dom.onclick = function() {
+    thiz.resetTry();
+  };
+  thiz.topbar.appendChild(dom);
+
+
+  // Bouton Essayer
+  dom = document.createElement("span");
+  dom.id = "button";
+  dom.innerHTML = "Play";
+  dom.onclick = function() {
+    thiz.checkTry();
+  };
+  thiz.topbar.appendChild(dom);
+
+};
+
+
+HTMLView.prototype.loadPegBank = function() {
   var thiz = this;
   var game = this.game;
   // Boutons de couleur
@@ -70,50 +123,38 @@ HTMLView.prototype.loadTopBar = function() {
     dom.setAttribute("style", "cursor: pointer;");
     /* cursor: pointer; */
     dom.onclick = function() {
-      thiz.addPeg(eval(dom.className.split('-').pop()));
+      thiz.playPeg(eval(dom.className.split('-').pop()));
     };
     thiz.pegBank.appendChild(dom);
   };
-
-  let dom = null;
-  let dom2 = null;
-
-  // Bouton Reset-try
-  dom = document.createElement("li");
-  dom2 = document.createElement("span"); //span
-  dom2.id = "button";
-  dom2.innerHTML = "ResetTry";
-  dom2.onclick = function() {
-    thiz.resetTry();
-  };
-  dom.appendChild(dom2);
-  thiz.topbar.appendChild(dom);
-
-
-  // Bouton Essayer
-  dom = document.createElement("li");
-  dom2 = document.createElement("span"); //span
-  dom2.id = "button";
-  dom2.innerHTML = "Essayer";
-  dom2.onclick = function() {
-    thiz.checkTry();
-  };
-  dom.appendChild(dom2);
-  thiz.topbar.appendChild(dom);
-
 };
 
-HTMLView.prototype.addPeg = function(color) {
-  if (this.try.length < this.game.nbDig) {
-    this.try.push(color);
-    this.updateTry();
-    // console.log(this.try);
-  }
+HTMLView.prototype.newGame = function() {
+  while (this.grid.firstChild) {
+    this.grid.removeChild(this.grid.firstChild);
+  };
+
+  while (this.scores.firstChild) {
+    this.scores.removeChild(this.scores.firstChild);
+  };
+
+  this.overlay.innerHTML = "";
+  this.overlay.id = "overlay";
+  this.resetTry();
+  this.game.init();
 };
 
 HTMLView.prototype.resetTry = function() {
   this.try = [];
   this.updateTry();
+};
+
+HTMLView.prototype.playPeg = function(color) {
+  if (this.try.length < this.game.nbDig) {
+    this.try.push(color);
+    this.updateTry();
+    // console.log(this.try);
+  }
 };
 
 

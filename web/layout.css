@@ -142,6 +142,7 @@ li {
   height: 0px;
   top: 100%;
   left: 100%;
+  transition: right 0.4s
 }
 
 #overlay-active {

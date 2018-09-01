@@ -1,3 +1,26 @@
+// The MIT License (MIT)
+//
+// Copyright (c) 2018 Xavier Morin
+//
+// Permission is hereby granted, free of charge, to any person obtaining a copy
+// of this software and associated documentation files (the "Software"), to deal
+// in the Software without restriction, including without limitation the rights
+// to use, copy, modify, merge, publish, distribute, sublicense, and/or sell
+// copies of the Software, and to permit persons to whom the Software is
+// furnished to do so, subject to the following conditions:
+//
+// The above copyright notice and this permission notice shall be included in
+// all copies or substantial portions of the Software.
+//
+// THE SOFTWARE IS PROVIDED "AS IS", WITHOUT WARRANTY OF ANY KIND, EXPRESS OR
+// IMPLIED, INCLUDING BUT NOT LIMITED TO THE WARRANTIES OF MERCHANTABILITY,
+// FITNESS FOR A PARTICULAR PURPOSE AND NONINFRINGEMENT. IN NO EVENT SHALL THE
+// AUTHORS OR COPYRIGHT HOLDERS BE LIABLE FOR ANY CLAIM, DAMAGES OR OTHER
+// LIABILITY, WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING FROM,
+// OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN
+// THE SOFTWARE.
+
+
 Block = function(value) {
   this.value = value;
   this.u = null;
@@ -17,10 +40,10 @@ Game = function(nbDigits, nbColors) {
 
   this.html = new HTMLView(this);
 
-  this.startGame();
+  this.init();
 };
 
-Game.prototype.reset = function() {
+Game.prototype.init = function() {
   this.tryCount = 0;
   this.target = [];
   for (let i = 0; i < this.nbDig; i++) {
@@ -63,10 +86,6 @@ Game.prototype.noteTry = function(try_) {
   return [a, b];
 };
 
-Game.prototype.startGame = function() {
-  this.reset();
-  // this.spawnBlock();
-};
 
 Game.prototype.makeNextBlock = function() {
   this.nextValue = this.startValues[Math.floor(Math.random() * this.startValues.length)];
