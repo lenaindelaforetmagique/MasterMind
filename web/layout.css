@@ -154,15 +154,12 @@ h1 {
 
 /* mobile settings */
 
-/* @media screen and (max-width: 800px) {
+@media screen and (max-width: 520px) {
+  #topbar {
+    height: 30px;
+  }
   #button {
-    background: red;
+    height: 30px;
+    line-height: 30px;
   }
-} */
-
-/* @media screen and (max-width: 520px) {
-  #score {
-    font-size: 34px;
-  }
-
-} */
+}
