@@ -1,0 +1,157 @@
+html, body
+{
+	background: #faf8ef;
+	color: #776e65;
+	font-family: Arial, sans-serif;
+}
+
+#score
+{
+	font-size: 40px;
+	font-weight: bold;
+}
+
+#topright
+{
+	font-size: 18px;
+}
+
+#topright-button
+{
+	background: #8f7a66;
+	color: #f9f6f2;
+}
+
+#overlay
+{
+	background: rgba(238, 228, 218, 0.73);
+}
+
+#grid
+{
+	background: #bbada0;
+}
+
+#bottombar
+{
+	font-size: 18px;
+	color: #bbb;
+}
+
+.block
+{
+	font-size: 55px;
+	font-weight: bold;
+}
+
+.block-2
+{
+	color: #776e65;
+	background: #eee4da;
+}
+.block-4
+{
+	color: #776e65;
+	background: #ede0c8;
+}
+.block-8
+{
+	color: #f9f6f2;
+	background: #f2b179;
+}
+.block-16
+{
+	color: #f9f6f2;
+	background: #f59563;
+}
+.block-32
+{
+	color: #f9f6f2;
+	background: #f67c5f;
+}
+.block-64
+{
+	color: #f9f6f2;
+	background: #f65e3b;
+}
+.block-128
+{
+	color: #f9f6f2;
+	background: #edcf72;
+	font-size: 45px;
+}
+.block-256
+{
+	color: #f9f6f2;
+	background: #edcc61;
+	font-size: 45px;
+}
+.block-512
+{
+	color: #f9f6f2;
+	background: #edc850;
+	font-size: 45px;
+}
+.block-1024
+{
+	color: #f9f6f2;
+	background: #edc53f;
+	font-size: 35px;
+}
+.block-2048
+{
+	color: #f9f6f2;
+	background: #edc22e;
+	font-size: 35px;
+}
+.block-over
+{
+	color: #f9f6f2;
+	background: #3c3a32;
+	font-size: 30px;
+}
+
+/* mobile settings */
+
+@media screen and (max-width: 520px)
+{
+	#score
+	{
+		font-size: 34px;
+	}
+
+	#overlay
+	{
+		font-size: 34px;
+	}
+
+	.block
+	{
+		font-size: 33px;
+	}
+
+	.block-128
+	{
+		font-size: 24px;
+	}
+	.block-256
+	{
+		font-size: 24px;
+	}
+	.block-512
+	{
+		font-size: 24px;
+	}
+	.block-1024
+	{
+		font-size: 19px;
+	}
+	.block-2048
+	{
+		font-size: 19px;
+	}
+	.block-over
+	{
+	    font-size: 16px;
+	}
+}
