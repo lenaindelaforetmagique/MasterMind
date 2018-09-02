@@ -1,7 +1,7 @@
 Simple Mastermind
 =================
 
-A simple web version of the famous board game [Mastermind][Mastermind wikipedia].
+A simple web version of the famous board game [Mastermind][Mastermindwikipedia].
 
 **[Play it here!](http://lenaindelaforetmagique.github.io/MasterMind/)**
 
@@ -23,9 +23,9 @@ License
 
 _Simple Mastermind_ is licensed under the [MIT License](LICENSE.txt). Distribute and modify at will!
 
-A lot of things were inspired and copied from [Eltzi's Tetris 2048][Eltzi's Tetris 2048], MIT License.
+A lot of things were inspired and copied from [Eltzi's Tetris 2048][Eltzi], MIT License.
 
 Gentium Book Basic font from [Google Fonts](https://www.google.com/fonts/specimen/Gentium+Book+Basic), distributed under the [SIL Open Font License, 1.1](http://scripts.sil.org/cms/scripts/page.php?site_id=nrsi&id=OFL).
 
-[Mastermind wikipedia][https://en.wikipedia.org/wiki/Mastermind_(board_game)]
-[Eltzi's Tetris 2048]: https://github.com/castux/eltzi/
+[Mastermindwikipedia][https://en.wikipedia.org/wiki/Mastermind_(board_game)]
+[Eltzi]: https://github.com/castux/eltzi/
