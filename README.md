@@ -1,27 +1,31 @@
-# MasterMind Solver
-----
+Simple Mastermind
+=================
 
-MasterMind Solver est un programme qui permet de trouver la solution d'une combinaison cachée du MasterMind.
+A simple web version of the famous board game [Mastermind][Mastermind wikipedia].
+
+**[Play it here!](http://lenaindelaforetmagique.github.io/MasterMind/)**
+
+Controls
+--------
+
+- Click or touch the code pegs on the right to compose a combination guess.
+- Submit it with the button _Play_.
+- Correct it with the button _Clear_
 
 
-## Algorithme mis en oeuvre
-### Vocabulaire
-Univers = Ensemble des combinaisons de lettres possibles (dans l'absolu)
+Screenshot!
+-----------
 
-Possibilites = Ensemble des combinaisons encore possible (au cours du jeu)
+![Screenshot](screenshot.png)
 
-Voisins = Ensemble des combinaisons compatibles avec une note
-        = Dictionary{key:Combinaison ; values:Dictionary{key:note ; values:Combinaisons}}
+License
+=======
 
+_Simple Mastermind_ is licensed under the [MIT License](LICENSE.txt). Distribute and modify at will!
 
-### Effet d'un coup
-À chaque coup noté, on peut associer un ensemble de possibilités compatibles (voisins).
+A lot of things were inspired and copied from [Eltzi's Tetris 2048][Eltzi's Tetris 2048], MIT License.
 
-L'ensemble des possibilités est alors réduit à Intersection(Possibilités, voisins).
+Gentium Book Basic font from [Google Fonts](https://www.google.com/fonts/specimen/Gentium+Book+Basic), distributed under the [SIL Open Font License, 1.1](http://scripts.sil.org/cms/scripts/page.php?site_id=nrsi&id=OFL).
 
-### Choix d'un coup
-On balaie l'ensemble des possibilités (proposition). Proposition que l'on note.
-
-Note de proposition = taille moyenne des Possibilités après ce coup
-
-On choisit le coup qui permet la plus grande réduction
+[Mastermind wikipedia][https://en.wikipedia.org/wiki/Mastermind_(board_game)]
+[Eltzi's Tetris 2048]: https://github.com/castux/eltzi/

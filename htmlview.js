@@ -21,9 +21,21 @@
 // THE SOFTWARE.
 
 removeChildren = function(dom) {
+  //removes all children of dom
   while (dom.firstChild) {
     dom.removeChild(dom.firstChild);
   };
+};
+
+domWidth = function(element) {
+  // gives the real width of the dom-element
+  let style = element.currentStyle || window.getComputedStyle(element),
+    width = element.offsetWidth, // or use style.width
+    margin = parseFloat(style.marginLeft) + parseFloat(style.marginRight),
+    padding = parseFloat(style.paddingLeft) + parseFloat(style.paddingRight),
+    border = parseFloat(style.borderLeftWidth) + parseFloat(style.borderRightWidth);
+
+  return (width + margin); // - padding - border);
 };
 
 
@@ -40,14 +52,14 @@ HTMLView = function(game) {
   this.game = game;
   this.canPlay = true;
 
-  this.try = [];
+  this.guess = [];
 
   this.setupView();
   this.loadTopBar();
   this.loadPegBank();
   this.freezeMove(this.board);
-  // this.setupUpdate();
 };
+
 
 HTMLView.prototype.freezeMove = function(dom) {
   let events = [
@@ -67,14 +79,6 @@ HTMLView.prototype.freezeMove = function(dom) {
 
 
 HTMLView.prototype.setupView = function() {
-  // let a = domWidth(document.getElementById("scores"));
-  // let b = domWidth(document.getElementById("grid"));
-  // let c = domWidth(document.getElementById("pegBank"));
-  // console.log(a, b, c);
-  // console.log(a + b + c);
-  // console.log(document.body.clientWidth);
-  // // document.body.clientWidth = a + b + c;
-
   var thiz = this;
 
   window.onload =
@@ -85,27 +89,15 @@ HTMLView.prototype.setupView = function() {
         margin = 0;
 
       thiz.container.style.marginTop = margin + "px";
-
     };
-
 };
 
-
-domWidth = function(element) {
-  let style = element.currentStyle || window.getComputedStyle(element),
-    width = element.offsetWidth, // or use style.width
-    margin = parseFloat(style.marginLeft) + parseFloat(style.marginRight),
-    padding = parseFloat(style.paddingLeft) + parseFloat(style.paddingRight),
-    border = parseFloat(style.borderLeftWidth) + parseFloat(style.borderRightWidth);
-
-  return (width + margin); // - padding - border);
-};
 
 HTMLView.prototype.loadTopBar = function() {
   var thiz = this;
   let dom = null;
 
-  // Bouton New Game
+  // New Game
   dom = document.createElement("span");
   dom.id = "button";
   dom.innerHTML = "New Game";
@@ -114,31 +106,27 @@ HTMLView.prototype.loadTopBar = function() {
   };
   thiz.topbar.appendChild(dom);
 
-  // Bouton Reset-try
+  // Clear
   dom = document.createElement("span");
   dom.id = "button";
   dom.innerHTML = "Clear";
   dom.onclick = function() {
-    console.log(thiz.canPlay);
     if (thiz.canPlay) {
-      thiz.resetTry();
+      thiz.resetGuess();
     };
   };
   thiz.topbar.appendChild(dom);
 
-
-  // Bouton Essayer
+  // Play
   dom = document.createElement("span");
   dom.id = "button";
   dom.innerHTML = "Play";
   dom.onclick = function() {
-    console.log(thiz.canPlay);
     if (thiz.canPlay) {
-      thiz.checkTry();
+      thiz.checkGuess();
     };
   };
   thiz.topbar.appendChild(dom);
-
 };
 
 
@@ -158,6 +146,7 @@ HTMLView.prototype.loadPegBank = function() {
   };
 };
 
+
 HTMLView.prototype.newGame = function() {
   removeChildren(this.scores);
   removeChildren(this.grid);
@@ -166,75 +155,71 @@ HTMLView.prototype.newGame = function() {
   this.overlay.innerHTML = "";
   this.overlay.id = "overlay";
 
-  this.resetTry();
+  this.resetGuess();
 
   this.canPlay = true;
   this.game.init();
 };
 
-HTMLView.prototype.resetTry = function() {
-  this.try = [];
-  this.updateTry();
+
+HTMLView.prototype.resetGuess = function() {
+  this.guess = [];
+  this.updateGuess();
 };
 
+
 HTMLView.prototype.playPeg = function(color) {
-  if (this.try.length < this.game.nbDig) {
-    this.try.push(color);
-    this.updateTry();
-    // console.log(this.try);
+  if (this.guess.length < this.game.nbDig) {
+    this.guess.push(color);
+    this.updateGuess();
   }
 };
 
 
-HTMLView.prototype.checkTry = function() {
-  if (this.try.length === this.game.nbDig) {
-    let note = this.game.noteTry(this.try);
-    console.log("Current Try :", this.try);
-    // console.log("checkNote", note);
+HTMLView.prototype.checkGuess = function() {
+  if (this.guess.length === this.game.nbDig) {
+    let note = this.game.noteGuess(this.guess);
     let a = note[0];
     this.printNote(note);
 
-    let dom = document.getElementById("currentTry");
-    dom.id = "oldTry";
-    dom.className = "oldTry";
+    let dom = document.getElementById("currentGuess");
+    dom.id = "oldGuess";
+    dom.className = "oldGuess";
 
     if (a === this.game.nbDig) {
       this.endOfGame();
-    } else if (this.game.tryCount === 10) {
+    } else if (this.game.guessCount === 10) {
       this.gameOver();
     } else {
-      this.resetTry();
+      this.resetGuess();
     }
   }
 };
 
 
-HTMLView.prototype.updateTry = function() {
-  let dom = document.getElementById("currentTry");
+HTMLView.prototype.updateGuess = function() {
+  let dom = document.getElementById("currentGuess");
   if (dom !== null) {
     dom.remove();
   }
 
-  dom = this.showCombination(this.try);
-  dom.id = "currentTry";
+  dom = this.showCombination(this.guess);
+  dom.id = "currentGuess";
 
   this.grid.appendChild(dom);
 };
 
 
 HTMLView.prototype.showCombination = function(table) {
-  console.log(table);
   let dom = document.createElement("div");
 
   for (let i = 0; i < table.length; i++) {
     let dom2 = document.createElement("div");
     dom2.className = "codePeg codePeg-" + table[i];
     dom.appendChild(dom2);
-    console.log(table[i]);
   };
   return dom;
 };
-
 
 
 HTMLView.prototype.printNote = function(note) {
@@ -260,12 +245,13 @@ HTMLView.prototype.printNote = function(note) {
 
 HTMLView.prototype.endOfGame = function() {
   // overlay End of game
-  var a = this.game.tryCount;
+  var a = this.game.guessCount;
   this.overlay.innerHTML = "Trouvé en " + a + (a > 1 ? " coups !" : " coup !!")
   this.overlay.id = "overlay-active";
 
   this.canPlay = false;
 };
+
 
 HTMLView.prototype.gameOver = function() {
   this.canPlay = false;
@@ -274,12 +260,7 @@ HTMLView.prototype.gameOver = function() {
   this.overlay.innerHTML = "Game over!";
   this.overlay.id = "overlay-active";
 
-
-
   let dom = this.showCombination(this.game.solution);
   dom.id = "solution";
-
   this.overlay.appendChild(dom);
-
-
 };

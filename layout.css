@@ -7,16 +7,9 @@ html, body {
   font-family: 'Gentium Book Basic', serif;
 }
 
-h1 {
-  font-size: 40px;
-  /* font-weight: bold; */
-}
-
 #container {
-  /* align-items: center; */
   position: relative;
   width: 300px;
-  height: 500px;
   margin: 0px auto;
 }
 
@@ -83,7 +76,8 @@ h1 {
 #overlay {
   position: absolute;
   height: 0px;
-  top: 100%;
+  top: 120px;
+  /* top: 100%; */
   left: 100%;
   transition: right 0.4s
 }
@@ -104,13 +98,13 @@ h1 {
   text-align: center;
 }
 
-#currentTry {
+#currentGuess {
   display: flex;
   padding: 0;
   margin: 0;
 }
 
-#oldTry {
+#oldGuess {
   display: flex;
   padding: 0;
   margin: 0;

@@ -1,4 +1,6 @@
-/* :root {
+/*
+https://ethanschoonover.com/solarized/
+:root {
   --solarized-base03: #002b36;
   --solarized-base02: #073642;
   --solarized-base01: #586e75;
@@ -19,11 +21,6 @@
 
 html, body {
   background: #fdf6e3;
-}
-
-h1 {
-  color: #657b83;
-  /* text-shadow: 0px 0px 5px var(black); */
 }
 
 #container {}
@@ -61,20 +58,18 @@ h1 {
   /*073642;*/
 }
 
-#overlay {
-  /* background: rgba(250, 0, 0, 1); */
-  /*248, 239, 0.8);*/
-}
+#overlay {}
 
 #overlay-active {
   background: rgba(250, 248, 239, 0.8);
+  color: #073642;
 }
 
-#currentTry {
+#currentGuess {
   /* background: #839496; */
 }
 
-#oldTry {
+#oldGuess {
   /* background: #93a1a1; */
 }
 
