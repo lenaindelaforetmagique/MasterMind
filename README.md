@@ -3,7 +3,7 @@ Simple Mastermind
 
 A simple web version of the famous board game [Mastermind][Mastermindwikipedia].
 
-**[Play it here!](http://lenaindelaforetmagique.github.io/MasterMind/)**
+**[Play it here!](https://lenaindelaforetmagique.github.io/MasterMind/)**
 
 Controls
 --------
