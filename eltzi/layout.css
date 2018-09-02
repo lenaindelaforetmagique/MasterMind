@@ -118,38 +118,26 @@ html, body {
 
 /* mobile settings */
 
-/* @media screen and (max-width: 520px)
-{
-	#container
-	{
-		width: 300px;
-	}
-
-	#grid
-	{
-		width: 300px;
-		height: 420px;
-	}
-
-	#overlay
-	{
-		margin: 170px auto;
-		height: 80px;
-
-		line-height: 80px;
-	}
-
-	.block
-	{
-		width: 60px;
-		height: 60px;
-		line-height: 60px;
-	}
-
-	#bottombar
-	{
-		width: 300px;
-		bottom: 10px;
-	}
-
-} */
+@media screen and (max-width: 520px) {
+  #container {
+    width: 300px;
+  }
+  #grid {
+    width: 300px;
+    height: 420px;
+  }
+  #overlay {
+    margin: 170px auto;
+    height: 80px;
+    line-height: 80px;
+  }
+  .block {
+    width: 60px;
+    height: 60px;
+    line-height: 60px;
+  }
+  #bottombar {
+    width: 300px;
+    bottom: 10px;
+  }
+}

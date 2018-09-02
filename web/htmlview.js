@@ -52,7 +52,10 @@ HTMLView = function(game) {
 HTMLView.prototype.freezeMove = function(dom) {
   let events = [
     "mousemove",
-    "touchmove"
+    "touchmove",
+    "touchstart",
+    "touchend",
+    "touchcancel"
   ];
 
   for (let i = 0; i < events.length; i++) {

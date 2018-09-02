@@ -44,20 +44,21 @@ h1 {
 #scores {
   border-style: solid;
   border-color: black;
-  background: #586e75;
+  background: #839496;
+  /*586e75;*/
 }
 
 #grid {
   border-style: solid;
   border-color: black;
   background: #839496;
-  /*#e5e5e2; */
 }
 
 #pegBank {
   border-style: solid;
   border-color: black;
-  background: #073642;
+  background: #586e75;
+  /*073642;*/
 }
 
 #overlay {
