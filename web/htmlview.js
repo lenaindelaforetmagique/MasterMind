@@ -53,8 +53,8 @@ HTMLView.prototype.freezeMove = function(dom) {
   let events = [
     "mousemove",
     "touchmove",
-    "touchstart",
-    "touchend",
+    //"touchstart",
+    //"touchend",
     "touchcancel"
   ];
 
