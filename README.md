@@ -27,5 +27,5 @@ A lot of things were inspired and copied from [Eltzi's Tetris 2048][Eltzi], MIT 
 
 Gentium Book Basic font from [Google Fonts](https://www.google.com/fonts/specimen/Gentium+Book+Basic), distributed under the [SIL Open Font License, 1.1](http://scripts.sil.org/cms/scripts/page.php?site_id=nrsi&id=OFL).
 
-[Mastermindwikipedia][https://en.wikipedia.org/wiki/Mastermind_(board_game)]
+[Mastermindwikipedia]:https://en.wikipedia.org/wiki/Mastermind_(board_game)
 [Eltzi]: https://github.com/castux/eltzi/
