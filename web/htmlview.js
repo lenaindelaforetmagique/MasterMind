@@ -50,15 +50,16 @@ HTMLView = function(game) {
 };
 
 HTMLView.prototype.freezeMove = function(dom) {
+  let events = [
+    "mousemove",
+    "touchmove"
+  ];
 
-  dom.addEventListener("mousemove", function(e) {
-    e.preventDefault();
-  });
-
-  dom.addEventListener("touchmove", function(e) {
-    e.preventDefault();
-  });
-
+  for (let i = 0; i < events.length; i++) {
+    dom.addEventListener(events[i], function(e) {
+      e.preventDefault();
+    });
+  };
 };
 
 
