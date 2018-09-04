@@ -89,7 +89,8 @@ HTMLView.prototype.setupView = function() {
   let w_all = ws + wg + 90;
   let hg = thiz.game.maxCount * 40
 
-  let styleText = "#container {width: " + w_all + "px;}"
+  let styleText = "html, body { " + w_all + "px;}"
+  styleText += "#container {width: " + w_all + "px;}"
   styleText += "#scores {width: " + ws + "px;}"
   styleText += "#grid {width: " + wg + "px;min-height: " + hg + "px;}"
   styleText += ".keyPegContainer {width: " + wkPC + "px;}"
