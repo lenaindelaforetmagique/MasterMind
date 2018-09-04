@@ -20,9 +20,10 @@
 // OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN
 // THE SOFTWARE.
 
-Game = function(nbDigits, nbColors) {
+Game = function(nbDigits, nbColors, limit) {
   this.nbDig = nbDigits;
   this.nbCol = nbColors;
+  this.maxCount = limit;
 
   this.solution = [];
   this.guessCount = 0;
@@ -75,6 +76,12 @@ Game.prototype.noteGuess = function(guess) {
   return [a, b];
 };
 
+// console.log(window.location.href);
+// console.log(window.location.hostname);
+// console.log(window.location.pathname);
+// console.log(window.location.protocol);
+// console.log(window.location.assign);
+
 function getQueryVariable(variable) {
   var query = window.location.search.substring(1);
   var vars = query.split("&");
@@ -87,15 +94,34 @@ function getQueryVariable(variable) {
   return (false);
 }
 
+// Colors
 let nbC = parseInt(getQueryVariable("colors"));
-let nbD = parseInt(getQueryVariable("digits"));
-
-if (!nbC || nbC < 1 || nbC > 8) {
+if (!nbC) {
   nbC = 6;
+} else if (nbC < 1) {
+  nbC = 1;
+} else if (nbC > 8) {
+  nbC = 8;
 }
 
-if (!nbD || nbD < 1 || nbD > 6) {
+// Digits
+let nbD = parseInt(getQueryVariable("digits"));
+if (!nbD) {
   nbD = 4;
+} else if (nbD < 1) {
+  nbD = 1;
+} else if (nbD > 8) {
+  nbD = 8;
 }
 
-var game = new Game(nbD, nbC);
+// Limit
+let limit = parseInt(getQueryVariable("limit"));
+if (!limit) {
+  limit = 10;
+} else if (limit < 1) {
+  limit = 1;
+} else if (limit > 20) {
+  limit = 20;
+}
+
+var game = new Game(nbD, nbC, limit);

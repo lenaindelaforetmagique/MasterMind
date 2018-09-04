@@ -1,33 +1,33 @@
 /* Only dimensions here */
 
 html, body {
-  width: 300px;
+  /* width: 300px; */
   margin: 0 auto;
   padding: 0;
   font-family: 'Gentium Book Basic', serif;
+  text-align: center;
 }
 
 #container {
   position: relative;
   width: 300px;
-  margin: 0px auto;
+  margin: 3px auto;
 }
 
 #topbar {
-  position: relative;
-  height: 40px;
-  margin-bottom: 10px;
-  text-align: center;
+  /* position: relative; */
+  /* height: 40px; */
+  margin: 10px;
 }
 
 .button {
   display: inline-block;
-  height: 40px;
-  border-radius: 6px;
-  padding: 0 15px;
   line-height: 40px;
-  cursor: pointer;
+  height: 40px;
+  padding: 0 15px;
   margin: 3px;
+  border-radius: 6px;
+  cursor: pointer;
 }
 
 #board {
@@ -36,38 +36,39 @@ html, body {
   left: 0px;
   right: 0px;
   border-radius: 10px;
-  text-align: center;
 }
 
 #scores {
   margin: 3px;
   padding: 2px;
   border-width: 1px;
-  width: 50px;
+  /* width: 60px; */
   left: 0px;
   right: 0px;
   border-radius: 10px;
-  height: 400px;
+  /* height: auto; */
+  /* 400px; */
+  text-align: center;
 }
 
 #grid {
-  margin: 3px 0px;
+  /* width: 160px; */
+  /* height: 400px; */
   padding: 2px;
   border-width: 1px;
-  width: 160px;
   border-radius: 10px;
-  left: 0px;
-  right: 0px;
-  height: 400px;
+  margin: 3px 0px;
+  /* left: 0px;
+  right: 0px; */
+  text-align: left;
 }
 
 #pegBank {
   width: 60px;
-  vertical-align: middle;
   display: inline;
-  margin: 3px;
   padding: 2px;
   border-width: 1px;
+  margin: 3px;
   left: 0px;
   right: 0px;
   border-radius: 10px;
@@ -77,15 +78,13 @@ html, body {
   position: absolute;
   height: 0px;
   top: 120px;
-  /* top: 100%; */
   left: 100%;
   transition: right 0.4s
 }
 
 #overlay-active {
   position: absolute;
-  width: 200px;
-  /* height: 50px; */
+  /* width: 200px; */
   left: 20px;
   top: 120px;
   transition: left 0.4s;
@@ -95,27 +94,29 @@ html, body {
   line-height: 50px;
   font-size: 20px;
   font-weight: bold;
-  text-align: center;
 }
 
 #currentGuess {
+  /* display: inline-block; */
   display: flex;
   padding: 0;
   margin: 0;
+  /* text-align: left; */
 }
 
 .oldGuess {
+  /* display: inline-block; */
   display: flex;
   padding: 0;
   margin: 0;
+  text-align: left;
 }
 
 #solution {
-  /* display: flex; */
-  padding: 0;
-  margin: 0;
-  width: 160px;
   display: inline-block;
+  padding: 0;
+  margin: 0px;
+  /* width: 160px; */
 }
 
 .codePeg {
@@ -131,9 +132,9 @@ html, body {
   display: inline-block;
   /* display: flex; */
   padding: 4px 2px 0px;
-  margin: 0px;
   height: 36px;
   /* width: 36px; */
+  text-align: left;
 }
 
 .keyPeg {

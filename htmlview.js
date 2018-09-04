@@ -81,6 +81,22 @@ HTMLView.prototype.freezeMove = function(dom) {
 HTMLView.prototype.setupView = function() {
   var thiz = this;
 
+  // Dynamic size of board
+  var sheet = document.createElement("style");
+  let wkPC = 16 * Math.ceil(thiz.game.nbDig / 2);
+  let ws = 20 + wkPC;
+  let wg = thiz.game.nbDig * 40;
+  let w_all = ws + wg + 90;
+  let hg = thiz.game.maxCount * 40
+
+  let styleText = "#container {width: " + w_all + "px;}"
+  styleText += "#scores {width: " + ws + "px;}"
+  styleText += "#grid {width: " + wg + "px;min-height: " + hg + "px;}"
+  styleText += ".keyPegContainer {width: " + wkPC + "px;}"
+  sheet.innerHTML = styleText;
+  document.body.appendChild(sheet);
+
+  //Vertical positioning
   window.onload =
     window.onresize = function() {
       var height = window.innerHeight;
@@ -194,7 +210,7 @@ HTMLView.prototype.checkGuess = function() {
 
     if (a === this.game.nbDig) {
       this.endOfGame();
-    } else if (this.game.guessCount === 10) {
+    } else if (this.game.guessCount === this.game.maxCount) {
       this.gameOver();
     } else {
       this.resetGuess();
@@ -263,9 +279,8 @@ HTMLView.prototype.gameOver = function() {
   this.canPlay = false;
 
   // overlay Game Over
-  this.overlay.innerHTML = "Game over!";
+  this.overlay.innerHTML = "Game over!<br>";
   this.overlay.id = "overlay-active";
-
   let dom = this.showCombination(this.game.solution);
   dom.id = "solution";
   this.overlay.appendChild(dom);
