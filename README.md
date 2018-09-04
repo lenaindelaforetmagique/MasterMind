@@ -12,6 +12,13 @@ Controls
 - Submit it with the button _Play_.
 - Correct it with the button _Clear_
 
+Query string
+------------
+Query arguments may be added to URL after '?':
+- digits=x : the number of pegs composing the combination (default: 4 ; 1≤x≤8),
+- colors=x : the number of colors for pegs (default: 6 ; 1≤x≤8),
+- limit=x : the max-number of tries before Game Over (default: 10 ; 1≤x≤20).
+
 
 Screenshot!
 -----------
