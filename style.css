@@ -27,7 +27,7 @@ html, body {
 
 #topbar {}
 
-#button {
+.button {
   background: #eee8d5;
   color: #073642;
   box-shadow: 1px 1px 2px black;
@@ -69,7 +69,7 @@ html, body {
   /* background: #839496; */
 }
 
-#oldGuess {
+.oldGuess {
   /* background: #93a1a1; */
 }
 
@@ -107,7 +107,7 @@ html, body {
   background: #d33682;
 }
 
-#keyPegContainer {}
+.keyPegContainer {}
 
 .keyPeg {}
 

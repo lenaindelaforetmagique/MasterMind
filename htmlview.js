@@ -99,7 +99,7 @@ HTMLView.prototype.loadTopBar = function() {
 
   // New Game
   dom = document.createElement("span");
-  dom.id = "button";
+  dom.className = "button";
   dom.innerHTML = "New Game";
   dom.onclick = function() {
     thiz.newGame();
@@ -108,7 +108,7 @@ HTMLView.prototype.loadTopBar = function() {
 
   // Clear
   dom = document.createElement("span");
-  dom.id = "button";
+  dom.className = "button";
   dom.innerHTML = "Clear";
   dom.onclick = function() {
     if (thiz.canPlay) {
@@ -120,7 +120,7 @@ HTMLView.prototype.loadTopBar = function() {
 
   // Check
   dom = document.createElement("span");
-  dom.id = "button";
+  dom.className = "button";
   dom.innerHTML = "Check";
   dom.onclick = function() {
     if (thiz.canPlay) {
@@ -189,7 +189,7 @@ HTMLView.prototype.checkGuess = function() {
     this.printNote(note);
 
     let dom = document.getElementById("currentGuess");
-    dom.id = "oldGuess";
+    dom.removeAttribute("id");
     dom.className = "oldGuess";
 
     if (a === this.game.nbDig) {
@@ -230,7 +230,7 @@ HTMLView.prototype.showCombination = function(table) {
 
 HTMLView.prototype.printNote = function(note) {
   let dom = document.createElement("div");
-  dom.id = "keyPegContainer";
+  dom.className = "keyPegContainer";
 
   for (let i = 0; i < this.game.nbDig; i++) {
     let dom2 = document.createElement("div");

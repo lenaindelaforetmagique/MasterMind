@@ -38,7 +38,7 @@ Game.prototype.init = function() {
   for (let i = 0; i < this.nbDig; i++) {
     this.solution.push(Math.floor(Math.random() * this.nbCol));
   };
-  // console.log("Solution :", this.solution);
+  console.log("Solution :", this.solution);
 };
 
 Game.prototype.noteGuess = function(guess) {
