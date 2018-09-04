@@ -112,15 +112,16 @@ HTMLView.prototype.loadTopBar = function() {
   dom.innerHTML = "Clear";
   dom.onclick = function() {
     if (thiz.canPlay) {
-      thiz.resetGuess();
+      // thiz.resetGuess();
+      thiz.cancelLastPeg();
     };
   };
   thiz.topbar.appendChild(dom);
 
-  // Play
+  // Check
   dom = document.createElement("span");
   dom.id = "button";
-  dom.innerHTML = "Play";
+  dom.innerHTML = "Check";
   dom.onclick = function() {
     if (thiz.canPlay) {
       thiz.checkGuess();
@@ -164,6 +165,11 @@ HTMLView.prototype.newGame = function() {
 
 HTMLView.prototype.resetGuess = function() {
   this.guess = [];
+  this.updateGuess();
+};
+
+HTMLView.prototype.cancelLastPeg = function() {
+  this.guess.pop();
   this.updateGuess();
 };
 

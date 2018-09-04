@@ -75,4 +75,27 @@ Game.prototype.noteGuess = function(guess) {
   return [a, b];
 };
 
-var game = new Game(4, 6);
+function getQueryVariable(variable) {
+  var query = window.location.search.substring(1);
+  var vars = query.split("&");
+  for (var i = 0; i < vars.length; i++) {
+    var pair = vars[i].split("=");
+    if (pair[0] == variable) {
+      return pair[1];
+    }
+  }
+  return (false);
+}
+
+let nbC = parseInt(getQueryVariable("colors"));
+let nbD = parseInt(getQueryVariable("digits"));
+
+if (!nbC || nbC < 1 || nbC > 8) {
+  nbC = 6;
+}
+
+if (!nbD || nbD < 1 || nbD > 6) {
+  nbD = 4;
+}
+
+var game = new Game(nbD, nbC);
