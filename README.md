@@ -5,15 +5,15 @@ A simple web version of the famous board game [Mastermind][Mastermindwikipedia].
 
 **[Play it here!](https://lenaindelaforetmagique.github.io/MasterMind/)**
 
-##Controls
+## Controls
 
-###Mouse/touch
+### Mouse/touch
 
 - Click or touch the code pegs on the right to compose a combination guess.
 - Submit it with the button _Check_.
 - Correct it with the button _Clear_.
 
-###Query string
+### Query string
 
 Query arguments may be added to URL after '?':
 - digits=x : the number of pegs composing the combination (default: 4 ; 1≤x≤8),
@@ -24,7 +24,7 @@ Example:
     https://lenaindelaforetmagique.github.io/MasterMind/?digits=5&colors=4&limit=6
 
 
-##Screenshot!
+## Screenshot!
 
 ![Screenshot](screenshot.png)
 
