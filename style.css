@@ -18,12 +18,36 @@ https://ethanschoonover.com/solarized/
   --solarized-cyan: #2aa198;
   --solarized-green: #859900;
 } */
-
 html, body {
   background: #fdf6e3;
+  font-style: "Gentium Book Basic";
 }
 
 #container {}
+
+footer {
+  font-size: 14px;
+}
+
+a {
+  text-decoration: none;
+}
+
+a:link {
+  color: rgba(0, 0, 0, 0.9);
+}
+
+a:visited {
+  color: rgba(0, 0, 0, 0.9);
+}
+
+a:hover {
+  color: rgba(0, 0, 0, 0.7);
+}
+
+a:active {
+  color: rgba(0, 0, 0, 0.7);
+}
 
 #topbar {}
 
